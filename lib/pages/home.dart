@@ -44,6 +44,7 @@ class _HomeState extends State<Home> {
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       color: Colors.white,
+                      fontWeight: FontWeight.bold,
                       letterSpacing: 1.0,
                       fontSize: 20,
                     ),
@@ -58,6 +59,7 @@ class _HomeState extends State<Home> {
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       color: Colors.white,
+                      fontWeight: FontWeight.bold,
                       letterSpacing: 1.0,
                       fontSize: 20,
                     ),
@@ -71,6 +73,7 @@ class _HomeState extends State<Home> {
                     'SEE POSTS',
                     style: TextStyle(
                         fontFamily: 'Poppins',
+                        fontWeight: FontWeight.bold,
                         color: Colors.white,
                         letterSpacing: 1.0,
                         fontSize: 20,
@@ -85,6 +88,7 @@ class _HomeState extends State<Home> {
                     'LOGOUT',
                     style: TextStyle(
                         fontFamily: 'Poppins',
+                        fontWeight: FontWeight.bold,
                         color: Colors.white,
                         letterSpacing: 1.0,
                         fontSize: 20,
