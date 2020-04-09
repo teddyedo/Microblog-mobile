@@ -117,6 +117,7 @@ class _CreateCommentState extends State<CreateComment> {
                           if (_commentFormKey.currentState.validate()) {
 
                           }
+                          Navigator.pushNamed(context, '/posts');
                         },
                         backgroundColor: Color.fromRGBO(120, 119, 119, 1),
                         label: Text(

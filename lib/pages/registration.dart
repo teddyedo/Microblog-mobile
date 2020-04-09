@@ -145,6 +145,7 @@ class _RegistrationState extends State<Registration> {
                           if (_registrationFormKey.currentState.validate()) {
 
                           }
+                          Navigator.pushNamed(context, '/home/login');
                         },
                         backgroundColor: Color.fromRGBO(120, 119, 119, 1),
                         label: Text(

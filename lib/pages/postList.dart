@@ -48,7 +48,7 @@ class _PostListState extends State<PostList> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: postList.map((post){
-                    return postCard(post);
+                    return postCard(post, context);
                   }).toList(),
                 ),
               ),

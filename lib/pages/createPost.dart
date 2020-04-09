@@ -117,6 +117,8 @@ class _CreatePostState extends State<CreatePost> {
                           if (_postFormKey.currentState.validate()) {
 
                           }
+                          Navigator.pushNamed(context, '/posts');
+
                         },
                         backgroundColor: Color.fromRGBO(120, 119, 119, 1),
                         label: Text(

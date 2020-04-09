@@ -47,7 +47,9 @@ class _NotPermittedState extends State<NotPermitted> {
                   ),
                   SizedBox(height: 50,),
                   FloatingActionButton.extended(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/home');
+                    },
                     backgroundColor: Color.fromRGBO(120, 119, 119, 1),
                     label: Text(
                       'BACK TO HOME',

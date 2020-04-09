@@ -110,6 +110,8 @@ class _LoginState extends State<Login> {
                         onPressed: () {
                           if (_loginFormKey.currentState.validate()) {
                           }
+                          Navigator.pushNamed(context, '/posts');
+
                         },
                         backgroundColor: Color.fromRGBO(120, 119, 119, 1),
                         label: Text(

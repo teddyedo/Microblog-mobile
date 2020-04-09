@@ -1,7 +1,9 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget postCard(post){
+
+Widget postCard(post, context){
   return Card(
     margin: EdgeInsets.fromLTRB(16, 16, 16, 0),
     shape: RoundedRectangleBorder(
@@ -66,7 +68,9 @@ Widget postCard(post){
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/posts/newcomment');
+                    },
                     color: Color.fromRGBO(232, 90, 79, 1),
                     child: Text(
                       'COMMENT',

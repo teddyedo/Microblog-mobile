@@ -37,7 +37,9 @@ class _HomeState extends State<Home> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 FloatingActionButton.extended(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/home/login');
+                  },
                   backgroundColor: Color.fromRGBO(120, 119, 119, 1),
                   label: Text(
                     'LOGIN',
@@ -49,10 +51,13 @@ class _HomeState extends State<Home> {
                       fontSize: 20,
                     ),
                   ),
+                  heroTag: 'loginbtn',
                 ),
                 SizedBox(height: 20),
                 FloatingActionButton.extended(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/home/registration');
+                  },
                   backgroundColor: Color.fromRGBO(120, 119, 119, 1),
                   label: Text(
                     'REGISTER',
@@ -64,10 +69,13 @@ class _HomeState extends State<Home> {
                       fontSize: 20,
                     ),
                   ),
+                  heroTag: 'registerbtn',
                 ),
                 SizedBox(height: 20),
                 FloatingActionButton.extended(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/posts');
+                  },
                   backgroundColor: Color.fromRGBO(120, 119, 119, 1),
                   label: Text(
                     'SEE POSTS',
@@ -79,10 +87,13 @@ class _HomeState extends State<Home> {
                         fontSize: 20,
                     ),
                   ),
+                  heroTag: 'postsbtn',
                 ),
                 SizedBox(height: 20),
                 FloatingActionButton.extended(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/home/logout');
+                  },
                   backgroundColor: Color.fromRGBO(120, 119, 119, 1),
                   label: Text(
                     'LOGOUT',
@@ -94,6 +105,7 @@ class _HomeState extends State<Home> {
                         fontSize: 20,
                     ),
                   ),
+                  heroTag: 'logoutbtn',
                 )
               ],
             ),

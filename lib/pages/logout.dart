@@ -48,7 +48,9 @@ class _LogoutState extends State<Logout> {
                   ),
                   SizedBox(height: 50,),
                   FloatingActionButton.extended(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/home');
+                    },
                     backgroundColor: Color.fromRGBO(120, 119, 119, 1),
                     label: Text(
                       'LOGOUT',
