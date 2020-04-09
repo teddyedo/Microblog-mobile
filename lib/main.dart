@@ -6,10 +6,11 @@ import 'package:microblog/pages/home.dart';
 import 'package:microblog/pages/login.dart';
 import 'package:microblog/pages/logout.dart';
 import 'package:microblog/pages/notPermitted.dart';
+import 'package:microblog/pages/postList.dart';
 import 'package:microblog/pages/registration.dart';
 
 void main() => runApp(MaterialApp(
-  home: CreateComment(),
+  home: PostList(),
 
 ));
 
