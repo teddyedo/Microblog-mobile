@@ -1,4 +1,5 @@
 
+import 'package:microblog/model/Comment.dart';
 import 'package:microblog/model/Utente.dart';
 
 class Post{
@@ -7,20 +8,30 @@ class Post{
   String _DataOra;
   String _Testo;
   String _Titolo;
-  int _utenteID;
+  String _username;
+  List<Comment> _commentList;
 
-  Post(this._Id, this._DataOra, this._Testo, this._Titolo, this._utenteID);
 
-  int get utenteID => _utenteID;
+  Post(this._Id, this._DataOra, this._Testo, this._Titolo, this._username,
+      this._commentList);
 
-  set utenteID(int value) {
-    _utenteID = value;
+
+  List<Comment> get commentList => _commentList;
+
+  set commentList(List<Comment> value) {
+    _commentList = value;
   }
 
   String get Titolo => _Titolo;
 
   set Titolo(String value) {
     _Titolo = value;
+  }
+
+  String get username => _username;
+
+  set username(String value) {
+    _username = value;
   }
 
   String get Testo => _Testo;

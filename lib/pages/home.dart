@@ -79,10 +79,11 @@ class _HomeState extends State<Home> {
                 FloatingActionButton.extended(
                   onPressed: () async {
                     String postList = await UserServices.getPosts();
+                    String commentList = await UserServices.getComments();
                     Navigator.pushNamed(
                         context,
                         '/posts',
-                        arguments: postList
+                        arguments: {postList: postList, commentList: commentList}
                     );
                   },
                   backgroundColor: Color.fromRGBO(120, 119, 119, 1),

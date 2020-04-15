@@ -1,9 +1,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:microblog/model/Post.dart';
 
 
 Widget postCard(post, context){
+
+
+
   return Card(
     margin: EdgeInsets.fromLTRB(16, 16, 16, 0),
     shape: RoundedRectangleBorder(
@@ -23,6 +27,37 @@ Widget postCard(post, context){
                   fontSize: 21,
                   fontWeight: FontWeight.bold,
                   color: Color.fromRGBO(232, 90, 79, 1),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 10, 6, 0),
+              child: Text(
+                '${post.username}',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(120, 119, 119, 1),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 10, 6, 0),
+              child: Text(
+                '${post.DataOra}',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 12,
+                  color: Color.fromRGBO(120, 119, 119, 1),
                 ),
               ),
             ),
@@ -88,29 +123,6 @@ Widget postCard(post, context){
                 ),
               ],
             ),
-            Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(6,0,10,6),
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    onPressed: () {},
-                    color: Color.fromRGBO(232, 90, 79, 1),
-                    child: Text(
-                      'VIEW COMMENTS',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            )
           ],
         )
       ],
