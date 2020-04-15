@@ -30,20 +30,23 @@ Widget postCard(post, context){
         ),
         Row(
           children: <Widget>[
-            SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 15, 6, 15),
-              child: Text(
-                '${post.Testo}',
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 14,
-                  color: Color.fromRGBO(120, 119, 119, 1),
+            Flexible(
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 15, 6, 15),
+                  child: Text(
+                    '${post.Testo}',
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 14,
+                      color: Color.fromRGBO(120, 119, 119, 1),
+                    ),
+                  ),
                 ),
               ),
             ),
-
-          ],
+            SizedBox(height: 10),
+            ],
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),

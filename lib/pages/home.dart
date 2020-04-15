@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:microblog/services/UserServices.dart';
+
 
 class Home extends StatefulWidget {
   @override
@@ -8,6 +9,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,8 +77,13 @@ class _HomeState extends State<Home> {
                 ),
                 SizedBox(height: 20),
                 FloatingActionButton.extended(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/posts');
+                  onPressed: () async {
+                    String postList = await UserServices.getPosts();
+                    Navigator.pushNamed(
+                        context,
+                        '/posts',
+                        arguments: postList
+                    );
                   },
                   backgroundColor: Color.fromRGBO(120, 119, 119, 1),
                   label: Text(

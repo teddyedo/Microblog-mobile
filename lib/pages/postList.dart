@@ -1,25 +1,44 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:microblog/model/Post.dart';
 import 'package:microblog/pages/postCard.dart';
 
 
 class PostList extends StatefulWidget {
+
+
   @override
   _PostListState createState() => _PostListState();
 }
 
 class _PostListState extends State<PostList> {
 
-  List<Post> postList = [
-    Post(1, 'Titolo', 'Testo'),
-    Post(2, 'Title', 'Text'),
-    Post(3, 'TITTOLO', 'TESTTTTO')
-  ];
+  _PostListState();
 
-
-
-  @override
+ @override
   Widget build(BuildContext context) {
+
+   JsonDecoder decoder = new JsonDecoder();
+
+   String data = ModalRoute.of(context).settings.arguments;
+   List postList = decoder.convert(data.toString());
+   List<Post> listaPost = new List();
+
+   for (int i = 0; i < postList.length; i ++){
+
+     int IdUtente = postList[i]["utente"]["id"];
+     int Id = postList[i]["id"];
+     String testo = postList[i]["titolo"];
+     String titolo = postList[i]["testo"];
+     String dataOra = postList[i]["dataOra"];
+
+
+     Post p = new Post(Id, dataOra, testo, titolo, IdUtente);
+
+     listaPost.add(p);
+   }
+
     return Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Color.fromRGBO(234, 231, 220, 1),
@@ -47,7 +66,7 @@ class _PostListState extends State<PostList> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: postList.map((post){
+                  children: listaPost.map((post){
                     return postCard(post, context);
                   }).toList(),
                 ),
