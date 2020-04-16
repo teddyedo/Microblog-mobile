@@ -6,7 +6,7 @@ import 'package:microblog/model/Post.dart';
 
 Widget postCard(post, context){
 
-
+  List listaCommenti = post.commentList;
 
   return Card(
     margin: EdgeInsets.fromLTRB(16, 16, 16, 0),
@@ -94,6 +94,83 @@ Widget postCard(post, context){
               ),
             ],
           ),
+        ),
+        Row(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 10, 6, 0),
+              child: Text(
+                'COMMENTS',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(120, 119, 119, 1),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Flexible(
+              child: Row(
+                children: <Widget>[
+                  Expanded(child: SizedBox(),
+                    flex: 1,),
+                  Expanded(
+                    flex: 40,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: listaCommenti.map((commento) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                            ),
+                            Text(
+                              '${commento.Titolo}' + ' - ' + '${commento.username}',
+                              style: TextStyle(
+                                color: Color.fromRGBO(232, 90, 79, 1),
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Roboto',
+                                fontSize: 14
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 5),
+                            ),
+                            Text(
+                              '${commento.Testo}',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(120, 119, 119, 1),
+                                  fontFamily: 'Roboto',
+                                  fontSize: 12
+                              ),
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Divider(
+                                    thickness: 1,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  Expanded(child: SizedBox(),
+                    flex: 1,)
+                ],
+              ),
+            ),
+            SizedBox(height: 10),
+          ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,

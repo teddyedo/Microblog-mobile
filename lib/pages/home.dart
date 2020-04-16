@@ -83,7 +83,7 @@ class _HomeState extends State<Home> {
                     Navigator.pushNamed(
                         context,
                         '/posts',
-                        arguments: {postList: postList, commentList: commentList}
+                        arguments: {'postList': postList, 'commentList': commentList}
                     );
                   },
                   backgroundColor: Color.fromRGBO(120, 119, 119, 1),

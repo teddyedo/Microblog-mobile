@@ -21,14 +21,14 @@ class _PostListState extends State<PostList> {
   Widget build(BuildContext context) {
     JsonDecoder decoder = new JsonDecoder();
 
-    //find Posts
-    String postJson = ModalRoute
+    Map arguments = ModalRoute
         .of(context)
         .settings
         .arguments;
-    List postList = decoder.convert(postJson.toString());
-    List<Post> listaPost = new List();
 
+    //find Posts
+    List postList = decoder.convert(arguments["postList"].toString());
+    List<Post> listaPost = new List();
     for (int i = 0; i < postList.length; i ++) {
       String username = postList[i]["utente"]["username"];
       int Id = postList[i]["id"];
@@ -40,33 +40,26 @@ class _PostListState extends State<PostList> {
 
       Post p = new Post(Id, dataOra, testo, titolo, username, cList);
       listaPost.add(p);
+    }
+    //Find comments
+    List commentList = decoder.convert(arguments["commentList"].toString());
 
-      //Find comments
-      String commentJson = ModalRoute
-          .of(context)
-          .settings
-          .arguments;
-      List commentList = decoder.convert(commentJson.toString());
-      List<Post> listaCommenti = new List();
+    for (int i = 0; i < commentList.length; i ++) {
+      String username = commentList[i]["utente"]["username"];
+      int Id = commentList[i]["id"];
+      String testo = commentList[i]["titolo"];
+      String titolo = commentList[i]["testo"];
+      String dataOra = commentList[i]["dataOra"];
+      int postId = commentList[i]["post"]["id"];
 
-      for (int i = 0; i < commentList.length; i ++) {
-        String username = commentList[i]["utente"]["username"];
-        int Id = commentList[i]["id"];
-        String testo = commentList[i]["titolo"];
-        String titolo = commentList[i]["testo"];
-        String dataOra = commentList[i]["dataOra"];
-        int postId = commentList[i]["post"]["id"];
+      Comment c = new Comment(Id, testo, titolo, dataOra, username, postId);
 
-        Comment c = new Comment(Id, testo, titolo, dataOra, username, postId);
-
-        for (Post p in listaPost){
-          if (c.postId == p.Id){
-            p.commentList.add(c);
-          }
+      for (Post p in listaPost){
+        if (c.postId == p.Id){
+          p.commentList.add(c);
         }
-
       }
-
+    }
       return Scaffold(
           resizeToAvoidBottomInset: true,
           backgroundColor: Color.fromRGBO(234, 231, 220, 1),
@@ -106,5 +99,4 @@ class _PostListState extends State<PostList> {
           )
       );
     }
-  }
 }
