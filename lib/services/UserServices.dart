@@ -15,8 +15,8 @@ class UserServices {
   }
 
   //return the post with the given id
-  static Future<String> getPost(String id) async{
-    http.Response response = await http.get('http://192.168.1.13:8080/Microblog/api/posts/' + id);
+  static Future<String> getPost(int id) async{
+    http.Response response = await http.get('http://192.168.1.13:8080/Microblog/api/posts/${id.toString()}');
     Utf8Codec utf8codec = new Utf8Codec();
     String body = utf8codec.decode(response.bodyBytes);
     return body;

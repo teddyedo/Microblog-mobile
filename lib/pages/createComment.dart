@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:microblog/services/UserServices.dart';
 
@@ -9,10 +11,18 @@ class CreateComment extends StatefulWidget {
 class _CreateCommentState extends State<CreateComment> {
 
   final _commentFormKey = GlobalKey<FormState>();
+  TextEditingController titleController = new TextEditingController();
+  TextEditingController textController = new TextEditingController();
 
-  @override
+   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+
+     Map arguments = ModalRoute
+         .of(context)
+         .settings
+         .arguments;
+
+     return Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Color.fromRGBO(234, 231, 220, 1),
         appBar: AppBar(
@@ -54,6 +64,7 @@ class _CreateCommentState extends State<CreateComment> {
                       ),
                       SizedBox(height: 10),
                       TextFormField(
+                        controller: titleController,
                         decoration: InputDecoration(
                             hintText: 'Enter the title',
                             focusedBorder: new UnderlineInputBorder(
@@ -86,6 +97,7 @@ class _CreateCommentState extends State<CreateComment> {
                       ),
                       SizedBox(height: 10,),
                       TextFormField(
+                        controller: textController,
                         maxLines: 5,
                         decoration: InputDecoration(
                             border: new OutlineInputBorder(
@@ -116,11 +128,32 @@ class _CreateCommentState extends State<CreateComment> {
                       FloatingActionButton.extended(
                         onPressed: () async {
                           if (_commentFormKey.currentState.validate()) {
-
                           }
+                          String title = titleController.text;
+                          String text = textController.text;
+                          String postJson = await UserServices.getPost(arguments["postId"]);
+                          Map postMap = jsonDecode(postJson);
+
+                          Map userMap = new Map();
+
+                          userMap["password"] = "Gervaso23";
+                          userMap["id"] = 2;
+                          userMap["username"] = "Edoardo23";
+                          userMap["roles"] = "USER";
+                          userMap["salt"] = "sdgesihgoghgigwh";
+                          userMap["email"] = "egosho.ageg@gmail.com";
+
+                          Map commentMap = new Map();
+                          commentMap["utente"] = userMap;
+                          commentMap["post"] = postMap;
+                          commentMap["dataOra"] = "2020-12-04T10:32:21.000+0000";
+                          commentMap["titolo"] = text;
+                          commentMap["testo"] = title;
+
+                          await UserServices.createComment(commentMap);
                           String postList = await UserServices.getPosts();
                           String commentList = await UserServices.getComments();
-                          Navigator.pushNamed(
+                          Navigator.popAndPushNamed(
                               context,
                               '/posts',
                               arguments: {'postList': postList, 'commentList': commentList}
