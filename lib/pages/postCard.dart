@@ -184,7 +184,8 @@ Widget postCard(post, context){
                       borderRadius: BorderRadius.circular(15),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/posts/newcomment');
+                      Navigator.pushNamed(context, '/posts/newcomment', arguments: post.Id);
+
                     },
                     color: Color.fromRGBO(232, 90, 79, 1),
                     child: Text(

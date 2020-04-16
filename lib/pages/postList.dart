@@ -8,14 +8,15 @@ import 'package:microblog/pages/postCard.dart';
 
 class PostList extends StatefulWidget {
 
-
   @override
   _PostListState createState() => _PostListState();
 }
 
 class _PostListState extends State<PostList> {
 
+
   _PostListState();
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
@@ -93,10 +94,18 @@ class _PostListState extends State<PostList> {
                   ),
                 ),
                 Expanded(child: SizedBox(),
-                  flex: 1,)
+                  flex: 1,
+                ),
               ],
             ),
-          )
+          ),
+          floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.popAndPushNamed(context, '/posts/newpost');
+          },
+            backgroundColor: Color.fromRGBO(232, 90, 79, 1),
+            child: Icon(Icons.add),
+      ),
       );
     }
 }

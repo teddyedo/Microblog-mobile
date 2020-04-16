@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:microblog/services/UserServices.dart';
 
 class CreateComment extends StatefulWidget {
   @override
@@ -113,11 +114,18 @@ class _CreateCommentState extends State<CreateComment> {
                       ),
                       SizedBox(height: 100),
                       FloatingActionButton.extended(
-                        onPressed: () {
+                        onPressed: () async {
                           if (_commentFormKey.currentState.validate()) {
 
                           }
-                          Navigator.pushNamed(context, '/posts');
+                          String postList = await UserServices.getPosts();
+                          String commentList = await UserServices.getComments();
+                          Navigator.pushNamed(
+                              context,
+                              '/posts',
+                              arguments: {'postList': postList, 'commentList': commentList}
+                          );
+
                         },
                         backgroundColor: Color.fromRGBO(120, 119, 119, 1),
                         label: Text(

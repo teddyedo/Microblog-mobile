@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:microblog/model/Utente.dart';
+import 'package:microblog/services/UserServices.dart';
 
 class CreatePost extends StatefulWidget {
   @override
@@ -8,9 +13,16 @@ class CreatePost extends StatefulWidget {
 class _CreatePostState extends State<CreatePost> {
 
   final _postFormKey = GlobalKey<FormState>();
+  TextEditingController titleController = new TextEditingController();
+  TextEditingController textController = new TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
+
+    JsonDecoder decoder = new JsonDecoder();
+    JsonEncoder encoder = new JsonEncoder();
+
     return Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Color.fromRGBO(234, 231, 220, 1),
@@ -53,6 +65,7 @@ class _CreatePostState extends State<CreatePost> {
                       ),
                       SizedBox(height: 10),
                       TextFormField(
+                        controller: titleController,
                         decoration: InputDecoration(
                             hintText: 'Enter the title',
                             focusedBorder: new UnderlineInputBorder(
@@ -85,6 +98,7 @@ class _CreatePostState extends State<CreatePost> {
                       ),
                       SizedBox(height: 10,),
                       TextFormField(
+                        controller: textController,
                         maxLines: 5,
                         decoration: InputDecoration(
                             border: new OutlineInputBorder(
@@ -113,11 +127,37 @@ class _CreatePostState extends State<CreatePost> {
                       ),
                       SizedBox(height: 100),
                       FloatingActionButton.extended(
-                        onPressed: () {
+                        onPressed: () async {
                           if (_postFormKey.currentState.validate()) {
-
                           }
-                          Navigator.pushNamed(context, '/posts');
+
+                          String title = titleController.text;
+                          String text = textController.text;
+
+                          Map userMap = new Map();
+
+                          userMap["password"] = "7b006e73c30bc000532df3dfc454007335ccfaebf433d68af2e0f3906fd49955";
+                          userMap["id"] = 1;
+                          userMap["username"] = "admin";
+                          userMap["roles"] = "ADMIN";
+                          userMap["salt"] = "mkLva5dGmwOmS9RqqpHfkw";
+                          userMap["email"] = "admin.admin@admin.admin";
+
+                          Map postMap = new Map();
+
+                          postMap["utente"] = userMap;
+                          postMap["dataOra"] = "2020-01-11T10:32:21.000+0000";
+                          postMap["testo"] = '$title';
+                          postMap["titolo"] = '$text';
+
+                          await UserServices.createPost(postMap);
+                          String postList = await UserServices.getPosts();
+                          String commentList = await UserServices.getComments();
+                          Navigator.popAndPushNamed(
+                              context,
+                              '/posts',
+                              arguments: {'postList': postList, 'commentList': commentList}
+                          );
 
                         },
                         backgroundColor: Color.fromRGBO(120, 119, 119, 1),

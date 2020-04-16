@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -37,15 +38,26 @@ class UserServices {
     String body = utf8codec.decode(response.bodyBytes);
     return body;
   }
-
+  
   //Create a post
-  static void createPost(String id) async{
-    http.Response response = await http.post('http://192.168.1.13:8080/Microblog/api/comments');
+  static void createPost(Map postMap) async{
+
+    var body = json.encode(postMap);
+
+    http.Response response = await http.post('http://192.168.1.13:8080/Microblog/api/posts',
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
   }
 
   //Create a comment
-  static void createComment(String id) async{
-    http.Response response = await http.post('http://192.168.1.13:8080/Microblog/api/comments');
+  static void createComment(Map commentMap) async{
+    var body = json.encode(commentMap);
+
+    http.Response response = await http.post('http://192.168.1.13:8080/Microblog/api/comments',
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
   }
 
 }
