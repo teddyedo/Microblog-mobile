@@ -8,10 +8,12 @@ import 'package:microblog/pages/logout.dart';
 import 'package:microblog/pages/notPermitted.dart';
 import 'package:microblog/pages/postList.dart';
 import 'package:microblog/pages/registration.dart';
+import 'package:microblog/pages/settings.dart';
 
 void main() => runApp(MaterialApp(
-  initialRoute: '/home',
+  initialRoute: '/',
   routes: {
+    '/': (context) => Settings(),
     '/home': (context) => Home(),
     '/home/registration': (context) => Registration(),
     '/home/login': (context) => Login(),

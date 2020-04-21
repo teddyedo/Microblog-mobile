@@ -6,9 +6,13 @@ import 'package:http/http.dart' as http;
 
 class UserServices {
 
+  static String IP;
+  static String Port;
+
+
   //return the list of the posts
   static Future<String> getPosts() async{
-     http.Response response = await http.get('http://192.168.1.13:8080/Microblog/api/posts');
+     http.Response response = await http.get('http://$IP:$Port/Microblog/api/posts');
      Utf8Codec utf8codec = new Utf8Codec();
      String body = utf8codec.decode(response.bodyBytes);
      return body;
@@ -16,7 +20,7 @@ class UserServices {
 
   //return the post with the given id
   static Future<String> getPost(int id) async{
-    http.Response response = await http.get('http://192.168.1.13:8080/Microblog/api/posts/${id.toString()}');
+    http.Response response = await http.get('http://$IP:$Port/Microblog/api/posts/${id.toString()}');
     Utf8Codec utf8codec = new Utf8Codec();
     String body = utf8codec.decode(response.bodyBytes);
     return body;
@@ -24,7 +28,7 @@ class UserServices {
 
   //return the list of the comments
   static Future<String> getComments() async{
-    http.Response response = await http.get('http://192.168.1.13:8080/Microblog/api/comments');
+    http.Response response = await http.get('http://$IP:$Port/Microblog/api/comments');
     Utf8Codec utf8codec = new Utf8Codec();
     String body = utf8codec.decode(response.bodyBytes);
     return body;
@@ -33,7 +37,7 @@ class UserServices {
 
   //return the comment with the given id
   static Future<String> getComment(String id) async{
-    http.Response response = await http.get('http://192.168.1.13:8080/Microblog/api/comments');
+    http.Response response = await http.get('http://$IP:$Port/Microblog/api/comments');
     Utf8Codec utf8codec = new Utf8Codec();
     String body = utf8codec.decode(response.bodyBytes);
     return body;
@@ -44,7 +48,7 @@ class UserServices {
 
     var body = json.encode(postMap);
 
-    http.Response response = await http.post('http://192.168.1.13:8080/Microblog/api/posts',
+    http.Response response = await http.post('http://$IP:$Port/Microblog/api/posts',
         headers: {"Content-Type": "application/json"},
         body: body
     );
@@ -54,7 +58,7 @@ class UserServices {
   static void createComment(Map commentMap) async{
     var body = json.encode(commentMap);
 
-    http.Response response = await http.post('http://192.168.1.13:8080/Microblog/api/comments',
+    http.Response response = await http.post('http://$IP:$Port/Microblog/api/comments',
         headers: {"Content-Type": "application/json"},
         body: body
     );
