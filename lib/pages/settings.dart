@@ -11,6 +11,8 @@ class _SettingsState extends State<Settings> {
 
   TextEditingController IpController = new TextEditingController();
   TextEditingController PortController = new TextEditingController();
+  TextEditingController ProtocolController = new TextEditingController();
+
 
 
   @override
@@ -31,111 +33,146 @@ class _SettingsState extends State<Settings> {
           backgroundColor: Color.fromRGBO(217, 180, 126, 1),
           centerTitle: true,
         ),
-        body: Row(
-          children: <Widget>[
-            Expanded(child: SizedBox(),
-              flex: 3,),
-            Expanded(
-              flex: 14,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Text(
-                    'IP ',
-                    style: TextStyle(
-                        color: Color.fromRGBO(232, 90, 79, 1),
-                        fontFamily: 'Roboto',
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  TextFormField(
-                    controller: IpController,
-                    decoration: InputDecoration(
-                        hintText: 'Enter the IP of the server',
-                        focusedBorder: new UnderlineInputBorder(
-                            borderSide: new BorderSide(
-                                color: Color.fromRGBO(232, 90, 79, 1)
-                            )
-                        )
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter the IP of the server';
-                      }
-                      return null;
-                    },
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromRGBO(120, 119, 119, 1),
-                    ),
-                  ),
-                  SizedBox(height: 30),
-                  Text(
-                    'Port',
-                    style: TextStyle(
-                        color: Color.fromRGBO(232, 90, 79, 1),
-                        fontFamily: 'Roboto',
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  TextFormField(
-                    controller: PortController,
-                    decoration: InputDecoration(
-                        hintText: 'Enter the server port',
-                        focusedBorder: new UnderlineInputBorder(
-                            borderSide: new BorderSide(
-                                color: Color.fromRGBO(232, 90, 79, 1)
-                            )
-                        )
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please the port of the server';
-                      }
-                      return null;
-                    },
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromRGBO(120, 119, 119, 1),
-                    ),
-                  ),
-                  SizedBox(height: 60),
-                  FloatingActionButton.extended(
-                    onPressed: () {
-                      Navigator.popAndPushNamed(context, '/home');
-                      print(IpController.text);
-                      print(PortController.text);
-                      UserServices.IP = IpController.text;
-                      UserServices.Port = PortController.text;
-                      print(UserServices.Port);
-                      print(UserServices.IP);
-                    },
-                    backgroundColor: Color.fromRGBO(120, 119, 119, 1),
-                    label: Text(
-                      'ENTER',
+        body: SingleChildScrollView(
+          child: Row(
+            children: <Widget>[
+              Expanded(child: SizedBox(),
+                flex: 3,),
+              Expanded(
+                flex: 14,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    SizedBox(height: 150,),
+                    Text(
+                      'IP ',
                       style: TextStyle(
-                        fontFamily: 'Poppins',
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.0,
-                        fontSize: 20,
+                          color: Color.fromRGBO(232, 90, 79, 1),
+                          fontFamily: 'Roboto',
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold
                       ),
                     ),
-                    heroTag: 'loginbtn',
-                  ),
-                ],
+                    SizedBox(height: 10),
+                    TextFormField(
+                      controller: IpController,
+                      decoration: InputDecoration(
+                          hintText: 'Enter the IP of the server',
+                          focusedBorder: new UnderlineInputBorder(
+                              borderSide: new BorderSide(
+                                  color: Color.fromRGBO(232, 90, 79, 1)
+                              )
+                          )
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter the IP of the server';
+                        }
+                        return null;
+                      },
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromRGBO(120, 119, 119, 1),
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    Text(
+                      'Port',
+                      style: TextStyle(
+                          color: Color.fromRGBO(232, 90, 79, 1),
+                          fontFamily: 'Roboto',
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    TextFormField(
+                      controller: PortController,
+                      decoration: InputDecoration(
+                          hintText: 'Enter the server port',
+                          focusedBorder: new UnderlineInputBorder(
+                              borderSide: new BorderSide(
+                                  color: Color.fromRGBO(232, 90, 79, 1)
+                              )
+                          )
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please the port of the server';
+                        }
+                        return null;
+                      },
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromRGBO(120, 119, 119, 1),
+                      ),
+                    ),
+                    SizedBox(height: 30,),
+                    Text(
+                      'HTTP or HTTPS ',
+                      style: TextStyle(
+                          color: Color.fromRGBO(232, 90, 79, 1),
+                          fontFamily: 'Roboto',
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    TextFormField(
+                      controller: ProtocolController,
+                      decoration: InputDecoration(
+                          hintText: 'Enter the protocol used by your server',
+                          focusedBorder: new UnderlineInputBorder(
+                              borderSide: new BorderSide(
+                                  color: Color.fromRGBO(232, 90, 79, 1)
+                              )
+                          )
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter the name of the protocol used';
+                        }
+                        return null;
+                      },
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromRGBO(120, 119, 119, 1),
+                      ),
+                    ),
+                    SizedBox(height: 60),
+                    FloatingActionButton.extended(
+                      onPressed: () {
+                        Navigator.popAndPushNamed(context, '/home');
+
+                        UserServices.ip = IpController.text;
+                        UserServices.port = PortController.text;
+                        UserServices.protocol = ProtocolController.text;
+
+                      },
+                      backgroundColor: Color.fromRGBO(120, 119, 119, 1),
+                      label: Text(
+                        'ENTER',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.0,
+                          fontSize: 20,
+                        ),
+                      ),
+                      heroTag: 'loginbtn',
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Expanded(child: SizedBox(),
-              flex: 3,)
-          ],
+              Expanded(child: SizedBox(),
+                flex: 3,)
+            ],
+          ),
         )
     );
   }
