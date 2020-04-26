@@ -1,7 +1,7 @@
 # Microblog - mobile 
 
 !["Language"](https://img.shields.io/badge/LANGUAGE-DART-blue?style=for-the-badge&logo=dart)
-!["School project"](https://img.shields.io/badge/PROJECT%20TYPE-SCHOOL-yellow?style=for-the-badge)
+!["School project"](https://img.shields.io/badge/PROJECT%20TYPE-SCHOOL-yellow?style=for-the-badge&logo=google-scholar)
 !["IDE"](https://img.shields.io/badge/IDE-ANDROID%20STUDIO-brightgreen?style=for-the-badge&logo=android-studio)
 !["Framework"](https://img.shields.io/badge/FRAMEWORK-FLUTTER-blue?style=for-the-badge&logo=flutter)
 
