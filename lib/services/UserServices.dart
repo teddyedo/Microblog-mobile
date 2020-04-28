@@ -13,8 +13,33 @@ class UserServices {
 
   //Get the JWT for future requests
   static Future<String> getToken(String username, String password)async{
-    http.Response response = await http.get("https://");
+
+    Map<String, String> body = new Map();
+    body["username"] = username;
+    body["password"] = password;
+
+    print(body["username"]);
+    print(body["password"]);
+
+    var bodyJson = json.encode(body);
+
+    http.Response response = await http.post("$protocol://$ip:$port/Microblog/api/login",
+        headers: {"Content-Type": "application/json"},
+        body: bodyJson
+    );
+    if (response.headers.containsKey("authorization")){
+      token = response.headers["authorization"];
+    }
   }
+
+  //return the list of the users
+  static Future<String> getUsers() async{
+    http.Response response = await http.get('$protocol://$ip:$port/Microblog/api/users');
+    Utf8Codec utf8codec = new Utf8Codec();
+    String body = utf8codec.decode(response.bodyBytes);
+    return body;
+  }
+
 
   //return the list of the posts
   static Future<String> getPosts() async{

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:microblog/services/UserServices.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -8,6 +9,9 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
 
   final _loginFormKey = GlobalKey<FormState>();
+  TextEditingController UsernameController = new TextEditingController();
+  TextEditingController PasswordController = new TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +56,7 @@ class _LoginState extends State<Login> {
                       ),
                       SizedBox(height: 10,),
                       TextFormField(
+                        controller: UsernameController,
                         decoration: InputDecoration(
                           hintText: 'Enter your username',
                           focusedBorder: new UnderlineInputBorder(
@@ -85,6 +90,7 @@ class _LoginState extends State<Login> {
                       ),
                       SizedBox(height: 10,),
                       TextFormField(
+                        controller: PasswordController,
                         decoration: InputDecoration(
                             hintText: 'Enter your password',
                             focusedBorder: new UnderlineInputBorder(
@@ -109,8 +115,10 @@ class _LoginState extends State<Login> {
                       FloatingActionButton.extended(
                         onPressed: () {
                           if (_loginFormKey.currentState.validate()) {
+                            UserServices.getToken(UsernameController.text, PasswordController.text);
+                            Navigator.popAndPushNamed(context, "/home");
                           }
-                          Navigator.pushNamed(context, '/posts');
+                          //Navigator.popAndPushNamed(context, '/posts');
 
                         },
                         backgroundColor: Color.fromRGBO(120, 119, 119, 1),

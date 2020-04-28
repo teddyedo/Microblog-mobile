@@ -17,16 +17,17 @@ Widget postCard(post, context){
       children: <Widget>[
         Row(
           children: <Widget>[
-            SizedBox(height: 5,),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 6, 0),
-              child: Text(
-                '${post.Titolo}',
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 21,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(232, 90, 79, 1),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 6, 0),
+                child: Text(
+                  '${post.Testo}',
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 21,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromRGBO(232, 90, 79, 1),
+                  ),
                 ),
               ),
             ),
@@ -70,7 +71,7 @@ Widget postCard(post, context){
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(10, 15, 6, 15),
                   child: Text(
-                    '${post.Testo}',
+                    '${post.Titolo}',
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 14,
@@ -133,22 +134,13 @@ Widget postCard(post, context){
                             Text(
                               '${commento.Titolo}' + ' - ' + '${commento.username}',
                               style: TextStyle(
-                                color: Color.fromRGBO(232, 90, 79, 1),
-                                fontWeight: FontWeight.bold,
+                                color: Color.fromRGBO(120, 119, 119, 1),
                                 fontFamily: 'Roboto',
                                 fontSize: 14
                               ),
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 5),
-                            ),
-                            Text(
-                              '${commento.Testo}',
-                              style: TextStyle(
-                                  color: Color.fromRGBO(120, 119, 119, 1),
-                                  fontFamily: 'Roboto',
-                                  fontSize: 12
-                              ),
                             ),
                             Row(
                               children: <Widget>[
@@ -173,9 +165,10 @@ Widget postCard(post, context){
           ],
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.fromLTRB(6,0,6,6),
@@ -201,6 +194,21 @@ Widget postCard(post, context){
                 ),
               ],
             ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 5, 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  IconButton(
+                      icon: Icon(
+                        Icons.delete,
+                        size: 35,
+                        color: Color.fromRGBO(232, 90, 79, 1),
+                      ),
+                      onPressed:(){})
+                ],
+              ),
+            )
           ],
         )
       ],
