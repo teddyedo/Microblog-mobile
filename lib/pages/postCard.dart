@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:microblog/model/Post.dart';
+import 'package:microblog/services/UserServices.dart';
 
 
 Widget postCard(post, context){
@@ -205,7 +206,14 @@ Widget postCard(post, context){
                         size: 35,
                         color: Color.fromRGBO(232, 90, 79, 1),
                       ),
-                      onPressed:(){})
+                      onPressed:() async {
+
+                        UserServices.deletePost(post.Id.toString());
+                        String postList = await UserServices.getPosts();
+                        String commentList = await UserServices.getComments();
+                        Navigator.popAndPushNamed(context, "/posts",
+                            arguments: {'postList': postList, 'commentList': commentList});
+                      })
                 ],
               ),
             )

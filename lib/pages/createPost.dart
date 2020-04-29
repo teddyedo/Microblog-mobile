@@ -129,36 +129,35 @@ class _CreatePostState extends State<CreatePost> {
                       FloatingActionButton.extended(
                         onPressed: () async {
                           if (_postFormKey.currentState.validate()) {
+
+                            String title = titleController.text;
+                            String text = textController.text;
+
+                            Map userMap = new Map();
+
+                            userMap["password"] = null;
+                            userMap["id"] = null;
+                            userMap["username"] = UserServices.user;
+                            userMap["roles"] = null;
+                            userMap["salt"] = null;
+                            userMap["email"] = null;
+
+                            Map postMap = new Map();
+
+                            postMap["utente"] = userMap;
+                            postMap["dataOra"] = null;
+                            postMap["testo"] = '$text';
+                            postMap["titolo"] = '$title';
+
+                            await UserServices.createPost(postMap);
+                            String postList = await UserServices.getPosts();
+                            String commentList = await UserServices.getComments();
+                            Navigator.popAndPushNamed(
+                                context,
+                                '/posts',
+                                arguments: {'postList': postList, 'commentList': commentList}
+                            );
                           }
-
-                          String title = titleController.text;
-                          String text = textController.text;
-
-                          Map userMap = new Map();
-
-                          userMap["password"] = "7b006e73c30bc000532df3dfc454007335ccfaebf433d68af2e0f3906fd49955";
-                          userMap["id"] = 1;
-                          userMap["username"] = "admin";
-                          userMap["roles"] = "ADMIN";
-                          userMap["salt"] = "mkLva5dGmwOmS9RqqpHfkw";
-                          userMap["email"] = "admin.admin@admin.admin";
-
-                          Map postMap = new Map();
-
-                          postMap["utente"] = userMap;
-                          postMap["dataOra"] = "2020-01-11T10:32:21.000+0000";
-                          postMap["testo"] = '$title';
-                          postMap["titolo"] = '$text';
-
-                          await UserServices.createPost(postMap);
-                          String postList = await UserServices.getPosts();
-                          String commentList = await UserServices.getComments();
-                          Navigator.popAndPushNamed(
-                              context,
-                              '/posts',
-                              arguments: {'postList': postList, 'commentList': commentList}
-                          );
-
                         },
                         backgroundColor: Color.fromRGBO(120, 119, 119, 1),
                         label: Text(

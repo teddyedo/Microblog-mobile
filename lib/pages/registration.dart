@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:microblog/model/Utente.dart';
+import 'package:microblog/services/UserServices.dart';
 
 class Registration extends StatefulWidget {
   @override
@@ -8,6 +10,10 @@ class Registration extends StatefulWidget {
 class _RegistrationState extends State<Registration> {
 
   final _registrationFormKey = GlobalKey<FormState>();
+  TextEditingController UsernameController = new TextEditingController();
+  TextEditingController EmailController = new TextEditingController();
+  TextEditingController PasswordController = new TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +59,7 @@ class _RegistrationState extends State<Registration> {
                       ),
                       SizedBox(height: 10),
                       TextFormField(
+                        controller: UsernameController,
                         decoration: InputDecoration(
                             hintText: 'Enter your username',
                             focusedBorder: new UnderlineInputBorder(
@@ -85,6 +92,7 @@ class _RegistrationState extends State<Registration> {
                       ),
                       SizedBox(height: 10,),
                       TextFormField(
+                        controller: EmailController,
                         decoration: InputDecoration(
                             hintText: 'Enter your email',
                             focusedBorder: new UnderlineInputBorder(
@@ -119,6 +127,7 @@ class _RegistrationState extends State<Registration> {
                       ),
                       SizedBox(height: 10,),
                       TextFormField(
+                        controller: PasswordController,
                         decoration: InputDecoration(
                             hintText: 'Enter your password',
                             focusedBorder: new UnderlineInputBorder(
@@ -143,9 +152,13 @@ class _RegistrationState extends State<Registration> {
                       FloatingActionButton.extended(
                         onPressed: () {
                           if (_registrationFormKey.currentState.validate()) {
-
+                            Map<String, String> user = new Map();
+                            user["username"] = UsernameController.text;
+                            user["email"] = EmailController.text;
+                            user["password"] = PasswordController.text;
+                            UserServices.createUser(user);
+                            Navigator.pushNamed(context, '/home/login');
                           }
-                          Navigator.pushNamed(context, '/home/login');
                         },
                         backgroundColor: Color.fromRGBO(120, 119, 119, 1),
                         label: Text(

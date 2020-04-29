@@ -1,51 +1,53 @@
 
 class Utente {
 
-  int _Id;
-  String _Username;
-  String _Password;
-  String _Email;
-  String _SALT;
-  String _Roles;
+  int _id;
+  String _username;
+  String _password;
+  String _email;
+  String _salt;
+  String _roles;
 
-  Utente(this._Id, this._Username, this._Password, this._Email, this._SALT,
-      this._Roles);
 
-  String get Roles => _Roles;
+  Utente();
 
-  set Roles(String value) {
-    _Roles = value;
+  String get roles => _roles;
+
+  set roles(String value) {
+    _roles = value;
   }
 
-  String get SALT => _SALT;
+  String get salt => _salt;
 
-  set SALT(String value) {
-    _SALT = value;
+  set salt(String value) {
+    _salt = value;
   }
 
-  String get Email => _Email;
+  String get email => _email;
 
-  set Email(String value) {
-    _Email = value;
+  set email(String value) {
+    _email = value;
   }
 
-  String get Password => _Password;
+  String get password => _password;
 
-  set Password(String value) {
-    _Password = value;
+  set password(String value) {
+    _password = value;
   }
 
-  String get Username => _Username;
+  String get username => _username;
 
-  set Username(String value) {
-    _Username = value;
+  set username(String value) {
+    _username = value;
   }
 
-  int get Id => _Id;
+  int get id => _id;
 
-  set Id(int value) {
-    _Id = value;
+  set id(int value) {
+    _id = value;
   }
+
+
 
 
 }

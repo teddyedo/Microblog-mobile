@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:microblog/model/Utente.dart';
 
 class UserServices {
 
@@ -10,6 +11,7 @@ class UserServices {
   static String port;
   static String protocol;
   static String token;
+  static String user;
 
   //Get the JWT for future requests
   static Future<String> getToken(String username, String password)async{
@@ -18,9 +20,7 @@ class UserServices {
     body["username"] = username;
     body["password"] = password;
 
-    print(body["username"]);
-    print(body["password"]);
-
+    user = username;
     var bodyJson = json.encode(body);
 
     http.Response response = await http.post("$protocol://$ip:$port/Microblog/api/login",
@@ -80,7 +80,8 @@ class UserServices {
     var body = json.encode(postMap);
 
     http.Response response = await http.post('$protocol://$ip:$port/Microblog/api/posts',
-        headers: {"Content-Type": "application/json"},
+        headers: {"Content-Type": "application/json",
+                  "authorization": token},
         body: body
     );
   }
@@ -88,10 +89,27 @@ class UserServices {
   //Create a comment
   static void createComment(Map commentMap) async{
     var body = json.encode(commentMap);
+    print(body);
 
     http.Response response = await http.post('$protocol://$ip:$port/Microblog/api/comments',
+        headers: {"Content-Type": "application/json",
+                  "authorization": token},
+        body: body
+    );
+  }
+
+  static void createUser(Map userMap) async{
+    var body = json.encode(userMap);
+    
+    http.Response response = await http.post('$protocol://$ip:$port/Microblog/api/users',
         headers: {"Content-Type": "application/json"},
         body: body
+    );
+  }
+
+  static void deletePost(String id) async{
+    http.Response response = await http.delete('$protocol://$ip:$port/Microblog/api/posts/$id',
+        headers: {"authorization": token}
     );
   }
 

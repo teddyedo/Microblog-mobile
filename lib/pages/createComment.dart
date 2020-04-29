@@ -11,8 +11,7 @@ class CreateComment extends StatefulWidget {
 class _CreateCommentState extends State<CreateComment> {
 
   final _commentFormKey = GlobalKey<FormState>();
-  TextEditingController titleController = new TextEditingController();
-  TextEditingController textController = new TextEditingController();
+   TextEditingController textController = new TextEditingController();
 
    @override
   Widget build(BuildContext context) {
@@ -53,39 +52,7 @@ class _CreateCommentState extends State<CreateComment> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       SizedBox(height: 150),
-                      Text(
-                        'Title',
-                        style: TextStyle(
-                            color: Color.fromRGBO(232, 90, 79, 1),
-                            fontFamily: 'Roboto',
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
                       SizedBox(height: 10),
-                      TextFormField(
-                        controller: titleController,
-                        decoration: InputDecoration(
-                            hintText: 'Enter the title',
-                            focusedBorder: new UnderlineInputBorder(
-                                borderSide: new BorderSide(
-                                    color: Color.fromRGBO(232, 90, 79, 1)
-                                )
-                            )
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter the title of the comment';
-                          }
-                          return null;
-                        },
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromRGBO(120, 119, 119, 1),
-                        ),
-                      ),
-                      SizedBox(height: 25),
                       Text(
                         'Text',
                         style: TextStyle(
@@ -129,26 +96,25 @@ class _CreateCommentState extends State<CreateComment> {
                         onPressed: () async {
                           if (_commentFormKey.currentState.validate()) {
                           }
-                          String title = titleController.text;
                           String text = textController.text;
                           String postJson = await UserServices.getPost(arguments["postId"]);
                           Map postMap = jsonDecode(postJson);
+                          postMap["utente"].remove("roleList");
 
                           Map userMap = new Map();
 
-                          userMap["password"] = "Gervaso23";
-                          userMap["id"] = 2;
-                          userMap["username"] = "Edoardo23";
-                          userMap["roles"] = "USER";
-                          userMap["salt"] = "sdgesihgoghgigwh";
-                          userMap["email"] = "egosho.ageg@gmail.com";
+                          userMap["password"] = null;
+                          userMap["id"] = null;
+                          userMap["username"] = UserServices.user;
+                          userMap["roles"] =  null;
+                          userMap["salt"] = null;
+                          userMap["email"] = null;
 
                           Map commentMap = new Map();
                           commentMap["utente"] = userMap;
                           commentMap["post"] = postMap;
-                          commentMap["dataOra"] = "2020-12-04T10:32:21.000+0000";
-                          commentMap["titolo"] = text;
-                          commentMap["testo"] = title;
+                          commentMap["dataOra"] = null;
+                          commentMap["testo"] = text;
 
                           await UserServices.createComment(commentMap);
                           String postList = await UserServices.getPosts();
