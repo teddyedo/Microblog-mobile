@@ -90,6 +90,7 @@ class _LoginState extends State<Login> {
                       ),
                       SizedBox(height: 10,),
                       TextFormField(
+                        obscureText: true,
                         controller: PasswordController,
                         decoration: InputDecoration(
                             hintText: 'Enter your password',
