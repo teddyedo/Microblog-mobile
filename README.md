@@ -16,3 +16,7 @@ have to download and install Flutter to launch it.
 
 The GUI of this application is similar to the WebApp's one to make the transition between the web 
 app and the mobile application as easy as possible.
+
+
+### Deploy
+This application will be available for download on the Play Store in a few days.

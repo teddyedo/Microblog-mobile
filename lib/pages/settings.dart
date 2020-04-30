@@ -16,7 +16,6 @@ class _SettingsState extends State<Settings> {
   TextEditingController ProtocolController = new TextEditingController();
 
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
