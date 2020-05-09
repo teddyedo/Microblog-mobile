@@ -1,55 +1,47 @@
 
-import 'Post.dart';
-import 'Utente.dart';
-
+///Comment class
+///@version 1.0.0 - Allari Edoardo
 class Comment {
 
-  int _Id;
-  String _Testo;
-  String _Titolo;
-  String _DataOra;
+  int _id;
+  String _text;
+  String _dataOra;
   String _username;
   int _postId;
 
-  Comment(this._Id, this._Testo, this._Titolo, this._DataOra, this._username,
+  ///Constructor
+  Comment(this._id, this._text, this._dataOra, this._username,
       this._postId);
 
+  ///Getters and setters of comment's ID
   int get postId => _postId;
-
   set postId(int value) {
     _postId = value;
   }
 
+  ///Getters and setters of comment's creator
   String get username => _username;
-
   set username(String value) {
     _username = value;
   }
 
-  String get DataOra => _DataOra;
-
+  ///Getters and setters of comment's data
+  String get DataOra => _dataOra;
   set DataOra(String value) {
-    _DataOra = value;
+    _dataOra = value;
   }
 
-  String get Titolo => _Titolo;
-
-  set Titolo(String value) {
-    _Titolo = value;
-  }
-
-  String get Testo => _Testo;
-
+  ///Getters and setters of comment's text
+  String get Testo => _text;
   set Testo(String value) {
-    _Testo = value;
+    _text = value;
   }
 
-  int get Id => _Id;
-
+  ///Getters and setters of post's ID
+  int get Id => _id;
   set Id(int value) {
-    _Id = value;
+    _id = value;
   }
-
 
 }
 

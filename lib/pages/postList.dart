@@ -33,13 +33,13 @@ class _PostListState extends State<PostList> {
     for (int i = 0; i < postList.length; i ++) {
       String username = postList[i]["utente"]["username"];
       int Id = postList[i]["id"];
-      String testo = postList[i]["titolo"];
-      String titolo = postList[i]["testo"];
+      String text = postList[i]["titolo"];
+      String title = postList[i]["testo"];
       String dataOra = postList[i]["dataOra"];
 
       List<Comment> cList = new List();
 
-      Post p = new Post(Id, dataOra, testo, titolo, username, cList);
+      Post p = new Post(Id, dataOra, text, title, username, cList);
       listaPost.add(p);
     }
     //Find comments
@@ -48,12 +48,11 @@ class _PostListState extends State<PostList> {
     for (int i = 0; i < commentList.length; i ++) {
       String username = commentList[i]["utente"]["username"];
       int Id = commentList[i]["id"];
-      String testo = commentList[i]["titolo"];
-      String titolo = commentList[i]["testo"];
+      String title = commentList[i]["testo"];
       String dataOra = commentList[i]["dataOra"];
       int postId = commentList[i]["post"]["id"];
 
-      Comment c = new Comment(Id, testo, titolo, dataOra, username, postId);
+      Comment c = new Comment(Id, title, dataOra, username, postId);
 
       for (Post p in listaPost){
         if (c.postId == p.Id){

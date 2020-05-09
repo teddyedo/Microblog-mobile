@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:microblog/services/UserServices.dart';
 
 class Logout extends StatefulWidget {
   @override
@@ -49,7 +50,9 @@ class _LogoutState extends State<Logout> {
                   SizedBox(height: 50,),
                   FloatingActionButton.extended(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/home');
+                      UserServices.user = "";
+                      UserServices.token = "";
+                      Navigator.popAndPushNamed(context, '/home');
                     },
                     backgroundColor: Color.fromRGBO(120, 119, 119, 1),
                     label: Text(

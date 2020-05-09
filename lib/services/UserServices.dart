@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:microblog/model/Utente.dart';
+import 'package:microblog/model/User.dart';
 
 class UserServices {
 

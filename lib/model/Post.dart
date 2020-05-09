@@ -1,56 +1,56 @@
 
 import 'package:microblog/model/Comment.dart';
-import 'package:microblog/model/Utente.dart';
 
+///Post class
+///@version 1.0.0 - Allari Edoardo
 class Post{
 
-  int _Id;
-  String _DataOra;
-  String _Testo;
-  String _Titolo;
+  int _id;
+  String _dataOra;
+  String _text;
+  String _title;
   String _username;
   List<Comment> _commentList;
 
 
-  Post(this._Id, this._DataOra, this._Testo, this._Titolo, this._username,
+  ///Constructor
+  Post(this._id, this._dataOra, this._text, this._title, this._username,
       this._commentList);
 
-
+  ///getters and setters for comments list
   List<Comment> get commentList => _commentList;
-
   set commentList(List<Comment> value) {
     _commentList = value;
   }
 
-  String get Titolo => _Titolo;
-
+  ///getters and setters for post's title
+  String get Titolo => _title;
   set Titolo(String value) {
-    _Titolo = value;
+    _title = value;
   }
 
+  ///getters and setters for post's creator
   String get username => _username;
-
   set username(String value) {
     _username = value;
   }
 
-  String get Testo => _Testo;
-
+  ///getters and setters for post's text
+  String get Testo => _text;
   set Testo(String value) {
-    _Testo = value;
+    _text = value;
   }
 
-  String get DataOra => _DataOra;
-
+  ///getters and setters for post's date
+  String get DataOra => _dataOra;
   set DataOra(String value) {
-    _DataOra = value;
+    _dataOra = value;
   }
 
-  int get Id => _Id;
-
+  ///getters and setters for post's id
+  int get Id => _id;
   set Id(int value) {
-    _Id = value;
+    _id = value;
   }
-
 
 }

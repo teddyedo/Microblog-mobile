@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:microblog/model/Utente.dart';
+import 'package:microblog/model/User.dart';
 import 'package:microblog/services/UserServices.dart';
 
 class Registration extends StatefulWidget {

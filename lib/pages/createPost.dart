@@ -1,8 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:microblog/model/Utente.dart';
 import 'package:microblog/services/UserServices.dart';
 
 class CreatePost extends StatefulWidget {
@@ -13,15 +9,13 @@ class CreatePost extends StatefulWidget {
 class _CreatePostState extends State<CreatePost> {
 
   final _postFormKey = GlobalKey<FormState>();
+
+  ///Text fields controllers
   TextEditingController titleController = new TextEditingController();
   TextEditingController textController = new TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
-
-    JsonDecoder decoder = new JsonDecoder();
-    JsonEncoder encoder = new JsonEncoder();
 
     return Scaffold(
         resizeToAvoidBottomInset: true,
