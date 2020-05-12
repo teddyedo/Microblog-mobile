@@ -1,4 +1,7 @@
 
+import 'Post.dart';
+import 'User.dart';
+
 ///Comment class
 ///@version 1.0.0 - Allari Edoardo
 class Comment {
@@ -6,23 +9,23 @@ class Comment {
   int _id;
   String _text;
   String _dataOra;
-  String _username;
-  int _postId;
+  User _user;
+  Post _post;
 
   ///Constructor
-  Comment(this._id, this._text, this._dataOra, this._username,
-      this._postId);
+  Comment(this._id, this._text, this._dataOra, this._user, this._post);
 
-  ///Getters and setters of comment's ID
-  int get postId => _postId;
-  set postId(int value) {
-    _postId = value;
+
+  ///Getters and setters of the post
+  Post get post => _post;
+  set post(Post value) {
+    _post = value;
   }
 
   ///Getters and setters of comment's creator
-  String get username => _username;
-  set username(String value) {
-    _username = value;
+  User get user => _user;
+  set user(User value) {
+    _user = value;
   }
 
   ///Getters and setters of comment's data
@@ -37,7 +40,7 @@ class Comment {
     _text = value;
   }
 
-  ///Getters and setters of post's ID
+  ///Getters and setters of comment's ID
   int get Id => _id;
   set Id(int value) {
     _id = value;

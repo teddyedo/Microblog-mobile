@@ -1,6 +1,8 @@
 
 import 'package:microblog/model/Comment.dart';
 
+import 'User.dart';
+
 ///Post class
 ///@version 1.0.0 - Allari Edoardo
 class Post{
@@ -9,12 +11,12 @@ class Post{
   String _dataOra;
   String _text;
   String _title;
-  String _username;
+  User _user;
   List<Comment> _commentList;
 
 
   ///Constructor
-  Post(this._id, this._dataOra, this._text, this._title, this._username,
+  Post(this._id, this._dataOra, this._text, this._title, this._user,
       this._commentList);
 
   ///getters and setters for comments list
@@ -30,9 +32,9 @@ class Post{
   }
 
   ///getters and setters for post's creator
-  String get username => _username;
-  set username(String value) {
-    _username = value;
+  User get user => _user;
+  set username(User value) {
+    _user = value;
   }
 
   ///getters and setters for post's text

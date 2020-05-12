@@ -127,7 +127,7 @@ class _SettingsState extends State<Settings> {
                       TextFormField(
                         controller: ProtocolController,
                         decoration: InputDecoration(
-                            hintText: 'Enter the protocol used by your server',
+                            hintText: 'Enter the protocol of your server',
                             focusedBorder: new UnderlineInputBorder(
                                 borderSide: new BorderSide(
                                     color: Color.fromRGBO(232, 90, 79, 1)

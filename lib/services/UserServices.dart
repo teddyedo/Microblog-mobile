@@ -12,6 +12,7 @@ class UserServices {
   static String protocol;
   static String token;
   static String user;
+  static String pageSize = "5";
 
   //Get the JWT for future requests
   static Future<String> getToken(String username, String password)async{
@@ -43,7 +44,7 @@ class UserServices {
 
   //return the list of the posts
   static Future<String> getPosts() async{
-     http.Response response = await http.get('$protocol://$ip:$port/Microblog/api/posts');
+     http.Response response = await http.get('$protocol://$ip:$port/Microblog/api/posts?size=$pageSize');
      Utf8Codec utf8codec = new Utf8Codec();
      String body = utf8codec.decode(response.bodyBytes);
      return body;

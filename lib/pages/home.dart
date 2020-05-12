@@ -102,7 +102,7 @@ class _HomeState extends State<Home> {
                 SizedBox(height: 20),
                 FloatingActionButton.extended(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/home/logout');
+                    Navigator.popAndPushNamed(context, '/home/logout');
                   },
                   backgroundColor: Color.fromRGBO(120, 119, 119, 1),
                   label: Text(
