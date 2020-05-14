@@ -2,6 +2,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:microblog/model/Post.dart';
 import 'package:microblog/pages/postCard.dart';
+import 'package:microblog/services/PostServices.dart';
+import 'package:microblog/services/UserServices.dart';
+import 'package:http/http.dart' as http;
+
 
 
 class PostList extends StatefulWidget {
@@ -24,8 +28,12 @@ class _PostListState extends State<PostList> {
         .arguments;
 
     List<Post> listPost = arguments["postList"];
+    String prevPage = arguments["prev"];
+    String nextPage = arguments["next"];
 
-      return Scaffold(
+
+
+    return Scaffold(
           resizeToAvoidBottomInset: true,
           backgroundColor: Color.fromRGBO(234, 231, 220, 1),
           appBar: AppBar(
@@ -63,7 +71,80 @@ class _PostListState extends State<PostList> {
                   ),
                 ],
               ),
-              SizedBox(height: 90,)
+              SizedBox(height: 40,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  FlatButton(
+                      onPressed: () async {
+
+                        String postListJson = await UserServices.changePage(prevPage);
+                        Map<String, dynamic> posts = json.decode(postListJson);
+                        List<Post> postList = await PostServices.getPostsFormatted(posts);
+
+                        String next = "";
+                        String prev = "";
+
+
+                        if(posts["_links"].containsKey("next"))
+                          next = posts["_links"]["next"]["href"];
+
+
+                        if(posts["_links"].containsKey("prev"))
+                          prev = posts["_links"]["prev"]["href"];
+
+                        Navigator.popAndPushNamed(
+                            context,
+                            "/posts",
+                            arguments: {'postList': postList, 'next': next, 'prev': prev}
+                        );
+                      },
+                      color: Color.fromRGBO(232, 90, 79, 1),
+                      child: Text(
+                        'Precedente',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontFamily: 'Poppins'
+                        ),
+                      )),
+                  SizedBox(width: 20,),
+                  FlatButton(
+                      onPressed: () async {
+
+                        String postListJson = await UserServices.changePage(nextPage);
+                        Map<String, dynamic> posts = json.decode(postListJson);
+                        List<Post> postList = await PostServices.getPostsFormatted(posts);
+
+                        String next = "";
+                        String prev = "";
+
+
+                        if(posts["_links"].containsKey("next"))
+                          next = posts["_links"]["next"]["href"];
+
+
+                        if(posts["_links"].containsKey("prev"))
+                          prev = posts["_links"]["prev"]["href"];
+
+                        Navigator.popAndPushNamed(
+                            context,
+                            "/posts",
+                            arguments: {'postList': postList, 'next': next, 'prev': prev}
+                        );
+                      },
+                      color: Color.fromRGBO(232, 90, 79, 1),
+                      child: Text(
+                        'Successivo',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontFamily: 'Poppins'
+                        ),
+                      ))
+                ],
+              ),
+              SizedBox(height: 40,)
             ],
           ),
           floatingActionButton: FloatingActionButton(

@@ -88,7 +88,6 @@ class UserServices {
   //Create a comment
   static void createComment(Map commentMap) async{
     var body = json.encode(commentMap);
-    print(body);
 
     http.Response response = await http.post('$protocol://$ip:$port/Microblog/api/comments',
         headers: {"Content-Type": "application/json",
@@ -129,7 +128,6 @@ class UserServices {
     u.email = userMap["email"];
     u.roles = userMap["roles"];
 
-    print(u);
     return u;
   }
 
@@ -140,6 +138,13 @@ class UserServices {
 
     Map<String, dynamic> commentsMap = json.decode(body);
     return commentsMap["_embedded"]["comments"];
+  }
+
+
+  static Future<String> changePage(String url) async{
+    http.Response response = await http.get(url);
+    String body = utf8codec.decode(response.bodyBytes);
+    return body;
   }
 
 }

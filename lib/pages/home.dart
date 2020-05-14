@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:microblog/model/Post.dart';
@@ -83,11 +84,23 @@ class _HomeState extends State<Home> {
                   onPressed: () async {
                     String postListJson = await UserServices.getPosts();
                     Map<String, dynamic> posts = json.decode(postListJson);
+
+                    String nextPage = "";
+                    String prevPage = "";
+
+
+                    if(posts["_links"].containsKey("next"))
+                      nextPage = posts["_links"]["next"]["href"];
+
+
+                    if(posts["_links"].containsKey("prev"))
+                      prevPage = posts["_links"]["prev"]["href"];
+
                     List<Post> postList = await PostServices.getPostsFormatted(posts);
                     Navigator.pushNamed(
                         context,
                         '/posts',
-                        arguments: {'postList': postList}
+                        arguments: {'postList': postList, 'next': nextPage, 'prev': prevPage}
                     );
                   },
                   backgroundColor: Color.fromRGBO(120, 119, 119, 1),
