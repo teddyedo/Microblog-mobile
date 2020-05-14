@@ -59,6 +59,7 @@ class _SettingsState extends State<Settings> {
                       ),
                       SizedBox(height: 10),
                       TextFormField(
+                        keyboardType: TextInputType.number,
                         controller: IpController,
                         decoration: InputDecoration(
                             hintText: 'Enter the IP of the server',
@@ -92,6 +93,7 @@ class _SettingsState extends State<Settings> {
                       ),
                       SizedBox(height: 10),
                       TextFormField(
+                        keyboardType: TextInputType.number,
                         controller: PortController,
                         decoration: InputDecoration(
                             hintText: 'Enter the server port',
