@@ -13,7 +13,7 @@ class Comment {
   Post _post;
 
   ///Constructor
-  Comment(this._id, this._text, this._dataOra, this._user, this._post);
+  Comment();
 
 
   ///Getters and setters of the post

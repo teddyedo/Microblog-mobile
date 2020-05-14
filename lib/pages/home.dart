@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:microblog/model/Post.dart';
+import 'package:microblog/services/PostServices.dart';
 import 'package:microblog/services/UserServices.dart';
+import 'dart:convert';
 
 
 class Home extends StatefulWidget {
@@ -78,12 +81,13 @@ class _HomeState extends State<Home> {
                 SizedBox(height: 20),
                 FloatingActionButton.extended(
                   onPressed: () async {
-                    String postList = await UserServices.getPosts();
-                    String commentList = await UserServices.getComments();
+                    String postListJson = await UserServices.getPosts();
+                    Map<String, dynamic> posts = json.decode(postListJson);
+                    List<Post> postList = await PostServices.getPostsFormatted(posts);
                     Navigator.pushNamed(
                         context,
                         '/posts',
-                        arguments: {'postList': postList, 'commentList': commentList}
+                        arguments: {'postList': postList}
                     );
                   },
                   backgroundColor: Color.fromRGBO(120, 119, 119, 1),

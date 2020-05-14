@@ -15,9 +15,9 @@ class Post{
   List<Comment> _commentList;
 
 
+
   ///Constructor
-  Post(this._id, this._dataOra, this._text, this._title, this._user,
-      this._commentList);
+  Post();
 
   ///getters and setters for comments list
   List<Comment> get commentList => _commentList;
@@ -33,7 +33,7 @@ class Post{
 
   ///getters and setters for post's creator
   User get user => _user;
-  set username(User value) {
+  set user(User value) {
     _user = value;
   }
 

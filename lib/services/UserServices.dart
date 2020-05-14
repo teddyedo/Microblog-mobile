@@ -14,6 +14,9 @@ class UserServices {
   static String user;
   static String pageSize = "5";
 
+  static Utf8Codec utf8codec = new Utf8Codec();
+
+
   //Get the JWT for future requests
   static Future<String> getToken(String username, String password)async{
 
@@ -36,7 +39,6 @@ class UserServices {
   //return the list of the users
   static Future<String> getUsers() async{
     http.Response response = await http.get('$protocol://$ip:$port/Microblog/api/users');
-    Utf8Codec utf8codec = new Utf8Codec();
     String body = utf8codec.decode(response.bodyBytes);
     return body;
   }
@@ -45,7 +47,6 @@ class UserServices {
   //return the list of the posts
   static Future<String> getPosts() async{
      http.Response response = await http.get('$protocol://$ip:$port/Microblog/api/posts?size=$pageSize');
-     Utf8Codec utf8codec = new Utf8Codec();
      String body = utf8codec.decode(response.bodyBytes);
      return body;
   }
@@ -53,7 +54,6 @@ class UserServices {
   //return the post with the given id
   static Future<String> getPost(int id) async{
     http.Response response = await http.get('$protocol://$ip:$port/Microblog/api/posts/${id.toString()}');
-    Utf8Codec utf8codec = new Utf8Codec();
     String body = utf8codec.decode(response.bodyBytes);
     return body;
   }
@@ -61,7 +61,6 @@ class UserServices {
   //return the list of the comments
   static Future<String> getComments() async{
     http.Response response = await http.get('$protocol://$ip:$port/Microblog/api/comments');
-    Utf8Codec utf8codec = new Utf8Codec();
     String body = utf8codec.decode(response.bodyBytes);
     return body;
   }
@@ -70,7 +69,6 @@ class UserServices {
   //return the comment with the given id
   static Future<String> getComment(String id) async{
     http.Response response = await http.get('$protocol://$ip:$port/Microblog/api/comments');
-    Utf8Codec utf8codec = new Utf8Codec();
     String body = utf8codec.decode(response.bodyBytes);
     return body;
   }
@@ -99,6 +97,7 @@ class UserServices {
     );
   }
 
+  //create a new user
   static void createUser(Map userMap) async{
     var body = json.encode(userMap);
     
@@ -108,10 +107,39 @@ class UserServices {
     );
   }
 
+  //delete the post with the given id
   static void deletePost(String id) async{
     http.Response response = await http.delete('$protocol://$ip:$port/Microblog/api/posts/$id',
         headers: {"authorization": token}
     );
+  }
+
+  //return the user
+  static Future<User> getUser(String url) async {
+
+    http.Response response = await http.get(url);
+    String body = utf8codec.decode(response.bodyBytes);
+
+    Map<String, dynamic> userMap = json.decode(body);
+
+    User u = new User();
+
+    u.username = userMap["username"];
+    u.password = userMap["password"];
+    u.email = userMap["email"];
+    u.roles = userMap["roles"];
+
+    print(u);
+    return u;
+  }
+
+  //return the list of the comments of the post with the given id
+  static Future<List> getCommentsByPostId(String id) async{
+    http.Response response = await http.get("$protocol://$ip:$port/Microblog/api/comments/search/findCommentsByPost_Id?id=$id");
+    String body = utf8codec.decode(response.bodyBytes);
+
+    Map<String, dynamic> commentsMap = json.decode(body);
+    return commentsMap["_embedded"]["comments"];
   }
 
 }

@@ -22,7 +22,7 @@ Widget postCard(post, context){
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 10, 6, 0),
                 child: Text(
-                  '${post.Testo}',
+                  '${post.Titolo}',
                   style: TextStyle(
                     fontFamily: 'Roboto',
                     fontSize: 21,
@@ -39,7 +39,7 @@ Widget postCard(post, context){
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 10, 6, 0),
               child: Text(
-                '${post.username}',
+                '${post.user.username}',
                 style: TextStyle(
                   fontFamily: 'Roboto',
                   fontSize: 16,
@@ -72,7 +72,7 @@ Widget postCard(post, context){
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(10, 15, 6, 15),
                   child: Text(
-                    '${post.Titolo}',
+                    '${post.Testo}',
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 14,
@@ -133,7 +133,7 @@ Widget postCard(post, context){
                               padding: const EdgeInsets.symmetric(vertical: 5),
                             ),
                             Text(
-                              '${commento.Titolo}' + ' - ' + '${commento.username}',
+                              '${commento.Testo}' + ' - ' + '${commento.user.username}',
                               style: TextStyle(
                                 color: Color.fromRGBO(120, 119, 119, 1),
                                 fontFamily: 'Roboto',
@@ -218,7 +218,7 @@ Widget postCard(post, context){
               ),
             )
           ],
-        )
+        ),
       ],
     ),
   );
