@@ -178,8 +178,9 @@ Widget postCard(post, context){
                       borderRadius: BorderRadius.circular(15),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/posts/newcomment', arguments: {'postId': post.Id});
-
+                      if(UserServices.u.roles == "ADMIN" || UserServices.u.roles == "USER"){
+                        Navigator.pushNamed(context, '/posts/newComment', arguments: {'postId': post.Id});
+                      }
                     },
                     color: Color.fromRGBO(232, 90, 79, 1),
                     child: Text(

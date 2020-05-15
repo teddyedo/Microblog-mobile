@@ -55,4 +55,17 @@ class Post{
     _id = value;
   }
 
+
+  Map<String, dynamic> toJson(){
+
+    return
+        {
+          'dataOra': _dataOra,
+          'testo': _text,
+          'titolo': _title,
+          'utente': _user
+        };
+
+  }
+
 }

@@ -11,7 +11,7 @@ class UserServices {
   static String port;
   static String protocol;
   static String token;
-  static String user;
+  static User u;
   static String pageSize = "5";
 
   static Utf8Codec utf8codec = new Utf8Codec();
@@ -24,7 +24,6 @@ class UserServices {
     body["username"] = username;
     body["password"] = password;
 
-    user = username;
     var bodyJson = json.encode(body);
 
     http.Response response = await http.post("$protocol://$ip:$port/Microblog/api/login",
@@ -33,6 +32,10 @@ class UserServices {
     );
     if (response.headers.containsKey("authorization")){
       token = response.headers["authorization"];
+      u = await getUser("$protocol://$ip:$port/Microblog/api/users/search/findByUsername?username=$username");
+      return "User $username logged in";
+    }else{
+      return "Can't log in. Username or password not right";
     }
   }
 
@@ -77,6 +80,8 @@ class UserServices {
   static void createPost(Map postMap) async{
 
     var body = json.encode(postMap);
+
+    print(body);
 
     http.Response response = await http.post('$protocol://$ip:$port/Microblog/api/posts',
         headers: {"Content-Type": "application/json",
@@ -123,6 +128,11 @@ class UserServices {
 
     User u = new User();
 
+    String userUrl = userMap["_links"]["self"]["href"];
+    List<String> urlSplitted = userUrl.split("/");
+    int id = int.parse(urlSplitted[urlSplitted.length - 1]);
+
+    u.id = id;
     u.username = userMap["username"];
     u.password = userMap["password"];
     u.email = userMap["email"];
@@ -146,5 +156,7 @@ class UserServices {
     String body = utf8codec.decode(response.bodyBytes);
     return body;
   }
+
+
 
 }

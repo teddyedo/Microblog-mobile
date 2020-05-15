@@ -10,9 +10,9 @@ class Registration extends StatefulWidget {
 class _RegistrationState extends State<Registration> {
 
   final _registrationFormKey = GlobalKey<FormState>();
-  TextEditingController UsernameController = new TextEditingController();
-  TextEditingController EmailController = new TextEditingController();
-  TextEditingController PasswordController = new TextEditingController();
+  TextEditingController usernameController = new TextEditingController();
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
 
 
   @override
@@ -59,7 +59,7 @@ class _RegistrationState extends State<Registration> {
                       ),
                       SizedBox(height: 10),
                       TextFormField(
-                        controller: UsernameController,
+                        controller: usernameController,
                         decoration: InputDecoration(
                             hintText: 'Enter your username',
                             focusedBorder: new UnderlineInputBorder(
@@ -92,7 +92,7 @@ class _RegistrationState extends State<Registration> {
                       ),
                       SizedBox(height: 10,),
                       TextFormField(
-                        controller: EmailController,
+                        controller: emailController,
                         decoration: InputDecoration(
                             hintText: 'Enter your email',
                             focusedBorder: new UnderlineInputBorder(
@@ -127,7 +127,7 @@ class _RegistrationState extends State<Registration> {
                       ),
                       SizedBox(height: 10,),
                       TextFormField(
-                        controller: PasswordController,
+                        controller: passwordController,
                         decoration: InputDecoration(
                             hintText: 'Enter your password',
                             focusedBorder: new UnderlineInputBorder(
@@ -153,9 +153,9 @@ class _RegistrationState extends State<Registration> {
                         onPressed: () {
                           if (_registrationFormKey.currentState.validate()) {
                             Map<String, String> user = new Map();
-                            user["username"] = UsernameController.text;
-                            user["email"] = EmailController.text;
-                            user["password"] = PasswordController.text;
+                            user["username"] = usernameController.text;
+                            user["email"] = emailController.text;
+                            user["password"] = passwordController.text;
                             UserServices.createUser(user);
                             Navigator.pushNamed(context, '/home/login');
                           }

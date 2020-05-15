@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:microblog/model/Post.dart';
+import 'package:microblog/services/PostServices.dart';
+import 'dart:convert';
 import 'package:microblog/services/UserServices.dart';
 
 class CreatePost extends StatefulWidget {
@@ -127,29 +130,41 @@ class _CreatePostState extends State<CreatePost> {
                             String title = titleController.text;
                             String text = textController.text;
 
-                            Map userMap = new Map();
+                            String now = new DateTime.now().toString();
 
-                            userMap["password"] = null;
-                            userMap["id"] = null;
-                            userMap["username"] = UserServices.user;
-                            userMap["roles"] = null;
-                            userMap["salt"] = null;
-                            userMap["email"] = null;
+                            Map<String, dynamic> postMap = new Map();
 
-                            Map postMap = new Map();
-
-                            postMap["utente"] = userMap;
-                            postMap["dataOra"] = null;
+                            postMap["user"] = "${UserServices.protocol}://"
+                                "${UserServices.ip}:${UserServices.port}/Microblog"
+                                "/api/users/${UserServices.u.id}";
+                            postMap["dataOra"] = DateTime.parse(now.substring(0, now.length - 7)).toIso8601String();
                             postMap["testo"] = '$text';
                             postMap["titolo"] = '$title';
 
+                            print(postMap);
+
                             await UserServices.createPost(postMap);
-                            String postList = await UserServices.getPosts();
-                            String commentList = await UserServices.getComments();
+
+                            String postListJson = await UserServices.getPosts();
+                            Map<String, dynamic> posts = json.decode(postListJson);
+
+                            String nextPage = "";
+                            String prevPage = "";
+
+
+                            if(posts["_links"].containsKey("next"))
+                              nextPage = posts["_links"]["next"]["href"];
+
+
+                            if(posts["_links"].containsKey("prev"))
+                              prevPage = posts["_links"]["prev"]["href"];
+
+                            List<Post> postList = await PostServices.getPostsFormatted(posts);
+
                             Navigator.popAndPushNamed(
                                 context,
                                 '/posts',
-                                arguments: {'postList': postList, 'commentList': commentList}
+                                arguments: {'postList': postList, 'next': nextPage, 'prev': prevPage}
                             );
                           }
                         },

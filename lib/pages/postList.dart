@@ -101,7 +101,7 @@ class _PostListState extends State<PostList> {
                       },
                       color: Color.fromRGBO(232, 90, 79, 1),
                       child: Text(
-                        'Precedente',
+                        'Prev',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 14,
@@ -135,7 +135,7 @@ class _PostListState extends State<PostList> {
                       },
                       color: Color.fromRGBO(232, 90, 79, 1),
                       child: Text(
-                        'Successivo',
+                        'Next',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 14,
@@ -149,7 +149,9 @@ class _PostListState extends State<PostList> {
           ),
           floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.popAndPushNamed(context, '/posts/newpost');
+            if(UserServices.u.roles == "ADMIN"){
+              Navigator.popAndPushNamed(context, '/posts/newPost');
+            }
           },
             backgroundColor: Color.fromRGBO(232, 90, 79, 1),
             child: Icon(Icons.add),

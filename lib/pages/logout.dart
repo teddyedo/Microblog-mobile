@@ -50,7 +50,7 @@ class _LogoutState extends State<Logout> {
                   SizedBox(height: 50,),
                   FloatingActionButton.extended(
                     onPressed: () {
-                      UserServices.user = "";
+                      UserServices.u = null;
                       UserServices.token = "";
                       Navigator.popAndPushNamed(context, '/home');
                     },

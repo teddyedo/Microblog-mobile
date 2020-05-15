@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:microblog/model/Post.dart';
+import 'package:microblog/services/PostServices.dart';
 import 'package:microblog/services/UserServices.dart';
 
 class CreateComment extends StatefulWidget {
@@ -97,32 +99,43 @@ class _CreateCommentState extends State<CreateComment> {
                           if (_commentFormKey.currentState.validate()) {
                           }
                           String text = textController.text;
-                          String postJson = await UserServices.getPost(arguments["postId"]);
-                          Map postMap = jsonDecode(postJson);
-                          postMap["utente"].remove("roleList");
-
-                          Map userMap = new Map();
-
-                          userMap["password"] = null;
-                          userMap["id"] = null;
-                          userMap["username"] = UserServices.user;
-                          userMap["roles"] =  null;
-                          userMap["salt"] = null;
-                          userMap["email"] = null;
+                          String postId = arguments["postId"].toString();
+                          String now = new DateTime.now().toString();
 
                           Map commentMap = new Map();
-                          commentMap["utente"] = userMap;
-                          commentMap["post"] = postMap;
-                          commentMap["dataOra"] = null;
+
+                          commentMap["user"] = "${UserServices.protocol}://"
+                              "${UserServices.ip}:${UserServices.port}/Microblog"
+                              "/api/users/${UserServices.u.id}";
+
+                          commentMap["post"] = "${UserServices.protocol}://"
+                              "${UserServices.ip}:${UserServices.port}/Microblog"
+                              "/api/posts/$postId";
+                          commentMap["dataOra"] = DateTime.parse(now.substring(0, now.length - 7)).toIso8601String();
                           commentMap["testo"] = text;
 
                           await UserServices.createComment(commentMap);
-                          String postList = await UserServices.getPosts();
-                          String commentList = await UserServices.getComments();
+
+                          String postListJson = await UserServices.getPosts();
+                          Map<String, dynamic> posts = json.decode(postListJson);
+
+                          String nextPage = "";
+                          String prevPage = "";
+
+
+                          if(posts["_links"].containsKey("next"))
+                            nextPage = posts["_links"]["next"]["href"];
+
+
+                          if(posts["_links"].containsKey("prev"))
+                            prevPage = posts["_links"]["prev"]["href"];
+
+                          List<Post> postList = await PostServices.getPostsFormatted(posts);
+
                           Navigator.popAndPushNamed(
                               context,
                               '/posts',
-                              arguments: {'postList': postList, 'commentList': commentList}
+                              arguments: {'postList': postList, 'next': nextPage, 'prev': prevPage}
                           );
 
                         },

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:microblog/services/UserServices.dart';
 
 class Settings extends StatefulWidget {
@@ -11,9 +12,9 @@ class _SettingsState extends State<Settings> {
 
   final _settingsFormKey = GlobalKey<FormState>();
 
-  TextEditingController IpController = new TextEditingController();
-  TextEditingController PortController = new TextEditingController();
-  TextEditingController ProtocolController = new TextEditingController();
+  TextEditingController ipController = new TextEditingController();
+  TextEditingController portController = new TextEditingController();
+  TextEditingController protocolController = new TextEditingController();
 
 
   @override
@@ -59,8 +60,9 @@ class _SettingsState extends State<Settings> {
                       ),
                       SizedBox(height: 10),
                       TextFormField(
+                        inputFormatters: [LengthLimitingTextInputFormatter(15)],
                         keyboardType: TextInputType.number,
-                        controller: IpController,
+                        controller: ipController,
                         decoration: InputDecoration(
                             hintText: 'Enter the IP of the server',
                             focusedBorder: new UnderlineInputBorder(
@@ -93,8 +95,9 @@ class _SettingsState extends State<Settings> {
                       ),
                       SizedBox(height: 10),
                       TextFormField(
+                        inputFormatters: [LengthLimitingTextInputFormatter(5)],
                         keyboardType: TextInputType.number,
-                        controller: PortController,
+                        controller: portController,
                         decoration: InputDecoration(
                             hintText: 'Enter the server port',
                             focusedBorder: new UnderlineInputBorder(
@@ -127,7 +130,7 @@ class _SettingsState extends State<Settings> {
                       ),
                       SizedBox(height: 10),
                       TextFormField(
-                        controller: ProtocolController,
+                        controller: protocolController,
                         decoration: InputDecoration(
                             hintText: 'Enter the protocol of your server',
                             focusedBorder: new UnderlineInputBorder(
@@ -152,9 +155,9 @@ class _SettingsState extends State<Settings> {
                       FloatingActionButton.extended(
                         onPressed: () {
                           if(_settingsFormKey.currentState.validate()){
-                            UserServices.ip = IpController.text;
-                            UserServices.port = PortController.text;
-                            UserServices.protocol = ProtocolController.text;
+                            UserServices.ip = ipController.text;
+                            UserServices.port = portController.text;
+                            UserServices.protocol = protocolController.text;
                             Navigator.popAndPushNamed(context, '/home');
                           }
                         },

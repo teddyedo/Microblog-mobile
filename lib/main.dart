@@ -18,8 +18,8 @@ void main() => runApp(MaterialApp(
     '/home/login': (context) => Login(),
     '/home/logout': (context) => Logout(),
     '/posts': (context) => PostList(),
-    '/posts/newpost': (context) => CreatePost(),
-    '/posts/newcomment': (context) => CreateComment(),
+    '/posts/newPost': (context) => CreatePost(),
+    '/posts/newComment': (context) => CreateComment(),
   },
 
 ));
