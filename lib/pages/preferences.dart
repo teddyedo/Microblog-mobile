@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:microblog/model/Post.dart';
 import 'package:microblog/services/PostServices.dart';
 import 'package:microblog/services/UserServices.dart';
+import 'package:microblog/shared/Loading.dart';
 
 class Preferences extends StatefulWidget {
   @override
@@ -17,11 +18,11 @@ class _PreferencesState extends State<Preferences> {
   final _settingsFormKey = GlobalKey<FormState>();
   TextEditingController pageController = new TextEditingController();
 
-
+  bool loading = true;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
         backgroundColor: Color.fromRGBO(234, 231, 220, 1),
         appBar: AppBar(
           title: Text(
@@ -92,6 +93,10 @@ class _PreferencesState extends State<Preferences> {
                         onPressed: () async {
                           if(_settingsFormKey.currentState.validate()){
 
+                            setState(() {
+                              loading = true;
+                            });
+
                             UserServices.pageSize = pageController.text;
 
                             String postListJson = await UserServices.getPosts();
@@ -115,6 +120,10 @@ class _PreferencesState extends State<Preferences> {
                                 arguments: {'postList': postList, 'next': nextPage, 'prev': prevPage}
                             );
                           }
+
+                          setState(() {
+                            loading = false;
+                          });
                         },
                         backgroundColor: Color.fromRGBO(120, 119, 119, 1),
                         label: Text(

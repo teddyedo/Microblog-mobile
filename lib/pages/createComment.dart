@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:microblog/model/Post.dart';
 import 'package:microblog/services/PostServices.dart';
 import 'package:microblog/services/UserServices.dart';
+import 'package:microblog/shared/Loading.dart';
 
 class CreateComment extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class _CreateCommentState extends State<CreateComment> {
 
   final _commentFormKey = GlobalKey<FormState>();
    TextEditingController textController = new TextEditingController();
+   bool loading = false;
 
    @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class _CreateCommentState extends State<CreateComment> {
          .settings
          .arguments;
 
-     return Scaffold(
+     return loading ? Loading() : Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Color.fromRGBO(234, 231, 220, 1),
         appBar: AppBar(
@@ -97,46 +99,53 @@ class _CreateCommentState extends State<CreateComment> {
                       FloatingActionButton.extended(
                         onPressed: () async {
                           if (_commentFormKey.currentState.validate()) {
+                            setState(() {
+                              loading = true;
+                            });
+                            String text = textController.text;
+                            String postId = arguments["postId"].toString();
+                            String now = new DateTime.now().toString();
+
+                            Map commentMap = new Map();
+
+                            commentMap["user"] = "${UserServices.protocol}://"
+                                "${UserServices.ip}:${UserServices.port}/Microblog"
+                                "/api/users/${UserServices.u.id}";
+
+                            commentMap["post"] = "${UserServices.protocol}://"
+                                "${UserServices.ip}:${UserServices.port}/Microblog"
+                                "/api/posts/$postId";
+                            commentMap["dataOra"] = DateTime.parse(now.substring(0, now.length - 7)).toIso8601String();
+                            commentMap["testo"] = text;
+
+                            await UserServices.createComment(commentMap);
+
+                            String postListJson = await UserServices.getPosts();
+                            Map<String, dynamic> posts = json.decode(postListJson);
+
+                            String nextPage = "";
+                            String prevPage = "";
+
+
+                            if(posts["_links"].containsKey("next"))
+                              nextPage = posts["_links"]["next"]["href"];
+
+
+                            if(posts["_links"].containsKey("prev"))
+                              prevPage = posts["_links"]["prev"]["href"];
+
+                            List<Post> postList = await PostServices.getPostsFormatted(posts);
+
+                            Navigator.popAndPushNamed(
+                                context,
+                                '/posts',
+                                arguments: {'postList': postList, 'next': nextPage, 'prev': prevPage}
+                            );
+                            setState(() {
+                              loading = false;
+                            });
                           }
-                          String text = textController.text;
-                          String postId = arguments["postId"].toString();
-                          String now = new DateTime.now().toString();
 
-                          Map commentMap = new Map();
-
-                          commentMap["user"] = "${UserServices.protocol}://"
-                              "${UserServices.ip}:${UserServices.port}/Microblog"
-                              "/api/users/${UserServices.u.id}";
-
-                          commentMap["post"] = "${UserServices.protocol}://"
-                              "${UserServices.ip}:${UserServices.port}/Microblog"
-                              "/api/posts/$postId";
-                          commentMap["dataOra"] = DateTime.parse(now.substring(0, now.length - 7)).toIso8601String();
-                          commentMap["testo"] = text;
-
-                          await UserServices.createComment(commentMap);
-
-                          String postListJson = await UserServices.getPosts();
-                          Map<String, dynamic> posts = json.decode(postListJson);
-
-                          String nextPage = "";
-                          String prevPage = "";
-
-
-                          if(posts["_links"].containsKey("next"))
-                            nextPage = posts["_links"]["next"]["href"];
-
-
-                          if(posts["_links"].containsKey("prev"))
-                            prevPage = posts["_links"]["prev"]["href"];
-
-                          List<Post> postList = await PostServices.getPostsFormatted(posts);
-
-                          Navigator.popAndPushNamed(
-                              context,
-                              '/posts',
-                              arguments: {'postList': postList, 'next': nextPage, 'prev': prevPage}
-                          );
 
                         },
                         backgroundColor: Color.fromRGBO(120, 119, 119, 1),

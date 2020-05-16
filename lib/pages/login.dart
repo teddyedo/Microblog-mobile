@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:microblog/services/UserServices.dart';
+import 'package:microblog/shared/Loading.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -12,10 +13,12 @@ class _LoginState extends State<Login> {
   TextEditingController UsernameController = new TextEditingController();
   TextEditingController PasswordController = new TextEditingController();
 
+  bool loading = false;
+
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
         backgroundColor: Color.fromRGBO(234, 231, 220, 1),
         appBar: AppBar(
           title: Text(
@@ -117,10 +120,23 @@ class _LoginState extends State<Login> {
                         elevation: 0,
                         onPressed: () {
                           if (_loginFormKey.currentState.validate()) {
+
+                            setState(() {
+                              loading = true;
+                            });
                             UserServices.getToken(UsernameController.text, PasswordController.text);
-                            Navigator.popAndPushNamed(context, "/home");
+
+                            if(UserServices.token != ""){
+                              Navigator.popAndPushNamed(context, "/home");
+                              setState(() {
+                                loading = false;
+                              });
+                            }else{
+                              setState(() {
+                                loading = false;
+                              });
+                            }
                           }
-                          //Navigator.popAndPushNamed(context, '/posts');
 
                         },
                         backgroundColor: Color.fromRGBO(120, 119, 119, 1),

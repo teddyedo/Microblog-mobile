@@ -6,6 +6,8 @@ import 'package:microblog/services/PostServices.dart';
 import 'package:microblog/services/UserServices.dart';
 import 'dart:convert';
 
+import 'package:microblog/shared/Loading.dart';
+
 
 class Home extends StatefulWidget {
   @override
@@ -14,11 +16,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       backgroundColor: Color.fromRGBO(234, 231, 220, 1),
       appBar: AppBar(
         title: Text(
@@ -92,6 +94,9 @@ class _HomeState extends State<Home> {
                 SizedBox(height: 20),
                 FloatingActionButton.extended(
                   onPressed: () async {
+                    setState(() {
+                      loading = true;
+                    });
                     String postListJson = await UserServices.getPosts();
                     Map<String, dynamic> posts = json.decode(postListJson);
 
@@ -112,6 +117,11 @@ class _HomeState extends State<Home> {
                         '/posts',
                         arguments: {'postList': postList, 'next': nextPage, 'prev': prevPage}
                     );
+
+                    setState(() {
+                      loading = false;
+                    });
+
                   },
                   backgroundColor: Color.fromRGBO(120, 119, 119, 1),
                   label: Text(

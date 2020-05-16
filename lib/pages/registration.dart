@@ -2,6 +2,7 @@ import 'package:dbcrypt/dbcrypt.dart';
 import 'package:flutter/material.dart';
 import 'package:microblog/model/User.dart';
 import 'package:microblog/services/UserServices.dart';
+import 'package:microblog/shared/Loading.dart';
 
 class Registration extends StatefulWidget {
   @override
@@ -15,10 +16,12 @@ class _RegistrationState extends State<Registration> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
 
+  bool loading = false;
+
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       resizeToAvoidBottomInset: true,
         backgroundColor: Color.fromRGBO(234, 231, 220, 1),
         appBar: AppBar(
@@ -156,6 +159,10 @@ class _RegistrationState extends State<Registration> {
                         onPressed: () {
                           if (_registrationFormKey.currentState.validate()) {
 
+                            setState(() {
+                              loading = true;
+                            });
+
                             User u = new User();
 
                             DBCrypt crypt = new DBCrypt();
@@ -170,6 +177,10 @@ class _RegistrationState extends State<Registration> {
 
                             UserServices.createUser(u.toJsonForRegistration());
                             Navigator.pushNamed(context, '/home/login');
+
+                            setState(() {
+                              loading = false;
+                            });
                           }
                         },
                         backgroundColor: Color.fromRGBO(120, 119, 119, 1),

@@ -3,6 +3,7 @@ import 'package:microblog/model/Post.dart';
 import 'package:microblog/services/PostServices.dart';
 import 'dart:convert';
 import 'package:microblog/services/UserServices.dart';
+import 'package:microblog/shared/Loading.dart';
 
 class CreatePost extends StatefulWidget {
   @override
@@ -16,11 +17,12 @@ class _CreatePostState extends State<CreatePost> {
   ///Text fields controllers
   TextEditingController titleController = new TextEditingController();
   TextEditingController textController = new TextEditingController();
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Color.fromRGBO(234, 231, 220, 1),
         appBar: AppBar(
@@ -127,6 +129,9 @@ class _CreatePostState extends State<CreatePost> {
                         onPressed: () async {
                           if (_postFormKey.currentState.validate()) {
 
+                            setState(() {
+                              loading = true;
+                            });
                             String title = titleController.text;
                             String text = textController.text;
 
@@ -165,6 +170,10 @@ class _CreatePostState extends State<CreatePost> {
                                 '/posts',
                                 arguments: {'postList': postList, 'next': nextPage, 'prev': prevPage}
                             );
+
+                            setState(() {
+                              loading = false;
+                            });
                           }
                         },
                         backgroundColor: Color.fromRGBO(120, 119, 119, 1),

@@ -5,6 +5,7 @@ import 'package:microblog/pages/postCard.dart';
 import 'package:microblog/services/PostServices.dart';
 import 'package:microblog/services/UserServices.dart';
 import 'package:http/http.dart' as http;
+import 'package:microblog/shared/Loading.dart';
 
 
 
@@ -15,6 +16,8 @@ class PostList extends StatefulWidget {
 }
 
 class _PostListState extends State<PostList> {
+
+  bool loading = false;
 
   _PostListState();
 
@@ -33,7 +36,7 @@ class _PostListState extends State<PostList> {
 
 
 
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
           resizeToAvoidBottomInset: true,
           backgroundColor: Color.fromRGBO(234, 231, 220, 1),
           appBar: AppBar(
@@ -88,26 +91,40 @@ class _PostListState extends State<PostList> {
                   FlatButton(
                       onPressed: () async {
 
-                        String postListJson = await UserServices.changePage(prevPage);
-                        Map<String, dynamic> posts = json.decode(postListJson);
-                        List<Post> postList = await PostServices.getPostsFormatted(posts);
+                        if(arguments["prev"] == null || arguments["prev"] == ""){
+                          return null;
+                        }else{
+                          setState(() {
+                            loading = true;
+                          });
 
-                        String next = "";
-                        String prev = "";
+                          String postListJson = await UserServices.changePage(prevPage);
+                          Map<String, dynamic> posts = json.decode(postListJson);
+                          List<Post> postList = await PostServices.getPostsFormatted(posts);
+
+                          String next = "";
+                          String prev = "";
 
 
-                        if(posts["_links"].containsKey("next"))
-                          next = posts["_links"]["next"]["href"];
+                          if(posts["_links"].containsKey("next"))
+                            next = posts["_links"]["next"]["href"];
 
 
-                        if(posts["_links"].containsKey("prev"))
-                          prev = posts["_links"]["prev"]["href"];
+                          if(posts["_links"].containsKey("prev"))
+                            prev = posts["_links"]["prev"]["href"];
 
-                        Navigator.popAndPushNamed(
-                            context,
-                            "/posts",
-                            arguments: {'postList': postList, 'next': next, 'prev': prev}
-                        );
+                          Navigator.popAndPushNamed(
+                              context,
+                              "/posts",
+                              arguments: {'postList': postList, 'next': next, 'prev': prev}
+                          );
+
+                          setState(() {
+                            loading = false;
+                          });
+                        }
+
+
                       },
                       color: Color.fromRGBO(232, 90, 79, 1),
                       child: Text(
@@ -122,26 +139,40 @@ class _PostListState extends State<PostList> {
                   FlatButton(
                       onPressed: () async {
 
-                        String postListJson = await UserServices.changePage(nextPage);
-                        Map<String, dynamic> posts = json.decode(postListJson);
-                        List<Post> postList = await PostServices.getPostsFormatted(posts);
+                        if (arguments["next"] == null || arguments["next"] == ""){
+                          return null;
+                        }else{
+                          setState(() {
+                            loading = true;
+                          });
 
-                        String next = "";
-                        String prev = "";
+                          String postListJson = await UserServices.changePage(nextPage);
+                          Map<String, dynamic> posts = json.decode(postListJson);
+                          List<Post> postList = await PostServices.getPostsFormatted(posts);
+
+                          String next = "";
+                          String prev = "";
 
 
-                        if(posts["_links"].containsKey("next"))
-                          next = posts["_links"]["next"]["href"];
+                          if(posts["_links"].containsKey("next"))
+                            next = posts["_links"]["next"]["href"];
 
 
-                        if(posts["_links"].containsKey("prev"))
-                          prev = posts["_links"]["prev"]["href"];
+                          if(posts["_links"].containsKey("prev"))
+                            prev = posts["_links"]["prev"]["href"];
 
-                        Navigator.popAndPushNamed(
-                            context,
-                            "/posts",
-                            arguments: {'postList': postList, 'next': next, 'prev': prev}
-                        );
+                          Navigator.popAndPushNamed(
+                              context,
+                              "/posts",
+                              arguments: {'postList': postList, 'next': next, 'prev': prev}
+                          );
+
+                          setState(() {
+                            loading = false;
+                          });
+                        }
+
+
                       },
                       color: Color.fromRGBO(232, 90, 79, 1),
                       child: Text(
