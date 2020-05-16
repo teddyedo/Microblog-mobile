@@ -169,6 +169,7 @@ class _CreatePostState extends State<CreatePost> {
                           }
                         },
                         backgroundColor: Color.fromRGBO(120, 119, 119, 1),
+                        elevation: 0,
                         label: Text(
                           'CREATE POST',
                           style: TextStyle(

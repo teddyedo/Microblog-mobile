@@ -2,7 +2,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:microblog/model/Post.dart';
+import 'package:microblog/services/PostServices.dart';
 import 'package:microblog/services/UserServices.dart';
+import 'dart:convert';
 
 
 Widget postCard(post, context){
@@ -210,10 +212,28 @@ Widget postCard(post, context){
                       onPressed:() async {
 
                         UserServices.deletePost(post.Id.toString());
-                        String postList = await UserServices.getPosts();
-                        String commentList = await UserServices.getComments();
-                        Navigator.popAndPushNamed(context, "/posts",
-                            arguments: {'postList': postList, 'commentList': commentList});
+
+                        String postListJson = await UserServices.getPosts();
+                        Map<String, dynamic> posts = json.decode(postListJson);
+
+                        String nextPage = "";
+                        String prevPage = "";
+
+
+                        if(posts["_links"].containsKey("next"))
+                          nextPage = posts["_links"]["next"]["href"];
+
+
+                        if(posts["_links"].containsKey("prev"))
+                          prevPage = posts["_links"]["prev"]["href"];
+
+                        List<Post> postList = await PostServices.getPostsFormatted(posts);
+
+                        Navigator.popAndPushNamed(
+                            context,
+                            "/posts",
+                            arguments: {'postList': postList, 'next': nextPage, 'prev': prevPage}
+                        );
                       })
                 ],
               ),
