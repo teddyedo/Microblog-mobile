@@ -42,7 +42,6 @@ class User {
     _id = value;
   }
 
-
   Map<String, dynamic> toJson(){
 
     return
@@ -56,5 +55,16 @@ class User {
 
   }
 
+  Map<String, dynamic> toJsonForRegistration(){
+
+    return
+      {
+        'username': _username,
+        'password': _password,
+        'roles': _roles,
+        'email': _email
+      };
+
+  }
 
 }

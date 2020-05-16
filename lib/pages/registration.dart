@@ -1,3 +1,4 @@
+import 'package:dbcrypt/dbcrypt.dart';
 import 'package:flutter/material.dart';
 import 'package:microblog/model/User.dart';
 import 'package:microblog/services/UserServices.dart';
@@ -152,11 +153,20 @@ class _RegistrationState extends State<Registration> {
                       FloatingActionButton.extended(
                         onPressed: () {
                           if (_registrationFormKey.currentState.validate()) {
-                            Map<String, String> user = new Map();
-                            user["username"] = usernameController.text;
-                            user["email"] = emailController.text;
-                            user["password"] = passwordController.text;
-                            UserServices.createUser(user);
+
+                            User u = new User();
+
+                            DBCrypt crypt = new DBCrypt();
+
+                            u.username = usernameController.text;
+                            String pw = crypt.hashpw(passwordController.text, crypt.gensalt());
+                            u.password = pw.replaceRange(2, 3, "a");
+                            u.email = emailController.text;
+
+                            //DEFAULT ROLES IS USER FOR NEW REGISTERED
+                            u.roles = "USER";
+
+                            UserServices.createUser(u.toJsonForRegistration());
                             Navigator.pushNamed(context, '/home/login');
                           }
                         },
