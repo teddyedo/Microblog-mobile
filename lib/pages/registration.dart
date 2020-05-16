@@ -128,6 +128,7 @@ class _RegistrationState extends State<Registration> {
                       ),
                       SizedBox(height: 10,),
                       TextFormField(
+                        obscureText: true,
                         controller: passwordController,
                         decoration: InputDecoration(
                             hintText: 'Enter your password',
@@ -151,6 +152,7 @@ class _RegistrationState extends State<Registration> {
                       ),
                       SizedBox(height: 100),
                       FloatingActionButton.extended(
+                        elevation: 0,
                         onPressed: () {
                           if (_registrationFormKey.currentState.validate()) {
 

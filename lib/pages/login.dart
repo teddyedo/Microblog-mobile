@@ -114,6 +114,7 @@ class _LoginState extends State<Login> {
                       ),
                       SizedBox(height: 100),
                       FloatingActionButton.extended(
+                        elevation: 0,
                         onPressed: () {
                           if (_loginFormKey.currentState.validate()) {
                             UserServices.getToken(UsernameController.text, PasswordController.text);

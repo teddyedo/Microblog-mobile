@@ -14,7 +14,8 @@ class _SettingsState extends State<Settings> {
 
   TextEditingController ipController = new TextEditingController();
   TextEditingController portController = new TextEditingController();
-  TextEditingController protocolController = new TextEditingController();
+
+  int radioValue = 0;
 
 
   @override
@@ -118,9 +119,10 @@ class _SettingsState extends State<Settings> {
                           color: Color.fromRGBO(120, 119, 119, 1),
                         ),
                       ),
-                      SizedBox(height: 30,),
+                      SizedBox(height: 50,),
                       Text(
                         'HTTP or HTTPS ',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Color.fromRGBO(232, 90, 79, 1),
                             fontFamily: 'Roboto',
@@ -128,36 +130,85 @@ class _SettingsState extends State<Settings> {
                             fontWeight: FontWeight.bold
                         ),
                       ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        controller: protocolController,
-                        decoration: InputDecoration(
-                            hintText: 'Enter the protocol of your server',
-                            focusedBorder: new UnderlineInputBorder(
-                                borderSide: new BorderSide(
-                                    color: Color.fromRGBO(232, 90, 79, 1)
+                      SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 50, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Radio(
+                                      value: 0,
+                                      activeColor: Color.fromRGBO(232, 90, 79, 1),
+                                      groupValue: radioValue,
+                                      onChanged: (T) {
+                                        print(T);
+                                        setState(() {
+                                          radioValue = T;
+                                        });
+                                      },
+                                    ),
+                                    Text(
+                                      "HTTP",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromRGBO(120, 119, 119, 1),
+                                      ),
+                                    ),
+                                  ],
                                 )
-                            )
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter the name of the protocol used';
-                          }
-                          return null;
-                        },
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromRGBO(120, 119, 119, 1),
+                              ],
+                            ),
+                            Column(
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Radio(
+                                      value: 1,
+                                      activeColor: Color.fromRGBO(232, 90, 79, 1),
+                                      groupValue: radioValue,
+                                      onChanged: (T) {
+                                        print(T);
+                                        setState(() {
+                                          radioValue = T;
+                                        });
+                                      },
+                                    ),
+                                    Text(
+                                      "HTTPS",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromRGBO(120, 119, 119, 1),
+
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(height: 60),
+                      SizedBox(height: 50,),
                       FloatingActionButton.extended(
+                        elevation: 0,
                         onPressed: () {
                           if(_settingsFormKey.currentState.validate()){
                             UserServices.ip = ipController.text;
                             UserServices.port = portController.text;
-                            UserServices.protocol = protocolController.text;
+
+                            if(radioValue == 0){
+                              UserServices.protocol = "http";
+                            }else{
+                              UserServices.protocol = "https";
+                            }
                             Navigator.popAndPushNamed(context, '/home');
                           }
                         },
