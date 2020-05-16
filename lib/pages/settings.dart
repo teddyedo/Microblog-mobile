@@ -132,7 +132,7 @@ class _SettingsState extends State<Settings> {
                       ),
                       SizedBox(height: 20),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 0, 50, 0),
+                        padding: const EdgeInsets.fromLTRB(20, 0, 47, 0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[

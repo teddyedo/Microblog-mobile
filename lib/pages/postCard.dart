@@ -210,30 +210,31 @@ Widget postCard(post, context){
                         color: Color.fromRGBO(232, 90, 79, 1),
                       ),
                       onPressed:() async {
+                        if(UserServices.u.roles == "ADMIN"){
+                          UserServices.deletePost(post.Id.toString());
 
-                        UserServices.deletePost(post.Id.toString());
+                          String postListJson = await UserServices.getPosts();
+                          Map<String, dynamic> posts = json.decode(postListJson);
 
-                        String postListJson = await UserServices.getPosts();
-                        Map<String, dynamic> posts = json.decode(postListJson);
-
-                        String nextPage = "";
-                        String prevPage = "";
-
-
-                        if(posts["_links"].containsKey("next"))
-                          nextPage = posts["_links"]["next"]["href"];
+                          String nextPage = "";
+                          String prevPage = "";
 
 
-                        if(posts["_links"].containsKey("prev"))
-                          prevPage = posts["_links"]["prev"]["href"];
+                          if(posts["_links"].containsKey("next"))
+                            nextPage = posts["_links"]["next"]["href"];
 
-                        List<Post> postList = await PostServices.getPostsFormatted(posts);
 
-                        Navigator.popAndPushNamed(
-                            context,
-                            "/posts",
-                            arguments: {'postList': postList, 'next': nextPage, 'prev': prevPage}
-                        );
+                          if(posts["_links"].containsKey("prev"))
+                            prevPage = posts["_links"]["prev"]["href"];
+
+                          List<Post> postList = await PostServices.getPostsFormatted(posts);
+
+                          Navigator.popAndPushNamed(
+                              context,
+                              "/posts",
+                              arguments: {'postList': postList, 'next': nextPage, 'prev': prevPage}
+                          );
+                        }
                       })
                 ],
               ),

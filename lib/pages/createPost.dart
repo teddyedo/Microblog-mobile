@@ -141,7 +141,6 @@ class _CreatePostState extends State<CreatePost> {
                             postMap["testo"] = '$text';
                             postMap["titolo"] = '$title';
 
-                            print(postMap);
 
                             await UserServices.createPost(postMap);
 

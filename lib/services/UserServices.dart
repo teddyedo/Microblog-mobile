@@ -81,7 +81,6 @@ class UserServices {
 
     var body = json.encode(postMap);
 
-    print(body);
 
     http.Response response = await http.post('$protocol://$ip:$port/Microblog/api/posts',
         headers: {"Content-Type": "application/json",
@@ -116,6 +115,7 @@ class UserServices {
     http.Response response = await http.delete('$protocol://$ip:$port/Microblog/api/posts/$id',
         headers: {"authorization": token}
     );
+    print(token);
   }
 
   //return the user
