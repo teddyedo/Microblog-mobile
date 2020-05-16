@@ -55,7 +55,7 @@ class _PostListState extends State<PostList> {
                     Icons.settings,
                   ),
                   onPressed:(){
-                    Navigator.popAndPushNamed(context, "/");
+                    Navigator.popAndPushNamed(context, "/home/preferences");
                   }
               )
             ],
