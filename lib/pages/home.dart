@@ -33,6 +33,16 @@ class _HomeState extends State<Home> {
         ),
         backgroundColor: Color.fromRGBO(217, 180, 126, 1),
         centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(
+                Icons.settings,
+              ),
+              onPressed:(){
+                Navigator.popAndPushNamed(context, "/");
+              }
+          )
+          ],
       ),
       body: Row(
         children: <Widget>[

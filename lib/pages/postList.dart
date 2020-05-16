@@ -49,6 +49,16 @@ class _PostListState extends State<PostList> {
             ),
             backgroundColor: Color.fromRGBO(217, 180, 126, 1),
             centerTitle: true,
+            actions: <Widget>[
+              IconButton(
+                  icon: Icon(
+                    Icons.settings,
+                  ),
+                  onPressed:(){
+                    Navigator.popAndPushNamed(context, "/");
+                  }
+              )
+            ],
           ),
           body: ListView(
             children: <Widget>[
