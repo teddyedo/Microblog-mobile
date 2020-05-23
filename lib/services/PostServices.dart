@@ -1,6 +1,3 @@
-
-
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -10,16 +7,18 @@ import 'package:microblog/model/User.dart';
 
 import 'UserServices.dart';
 
-class PostServices{
+///@version 1.0.0 - Allari Edoardo
 
-  static Future<List<Post>> getPostsFormatted(Map<String, dynamic> postMap) async{
+class PostServices {
+  static Future<List<Post>> getPostsFormatted(
+      Map<String, dynamic> postMap) async {
     Map posts = postMap;
     List<Post> listPost = new List();
-    for (int i = 0; i < posts["_embedded"]["posts"].length; i ++) {
-
+    for (int i = 0; i < posts["_embedded"]["posts"].length; i++) {
       Post p = new Post();
 
-      User user = await UserServices.getUser(posts["_embedded"]["posts"][i]["_links"]["user"]["href"]);
+      User user = await UserServices.getUser(
+          posts["_embedded"]["posts"][i]["_links"]["user"]["href"]);
 
       String userUrl = posts["_embedded"]["posts"][i]["_links"]["self"]["href"];
       List<String> urlSplitted = userUrl.split("/");
@@ -31,15 +30,16 @@ class PostServices{
 
       List<Comment> commentsList = new List();
 
-      List commentsOfThisPost = await UserServices.getCommentsByPostId(id.toString());
+      List commentsOfThisPost =
+          await UserServices.getCommentsByPostId(id.toString());
 
-      for (int j = 0; j < commentsOfThisPost.length; j ++){
-
+      for (int j = 0; j < commentsOfThisPost.length; j++) {
         Comment c = new Comment();
 
         String dataOra = commentsOfThisPost[j]["dataOra"];
         String text = commentsOfThisPost[j]["testo"];
-        User user = await UserServices.getUser(commentsOfThisPost[j]["_links"]["user"]["href"]);
+        User user = await UserServices.getUser(
+            commentsOfThisPost[j]["_links"]["user"]["href"]);
 
         c.post = p;
         c.user = user;
@@ -62,4 +62,3 @@ class PostServices{
     return listPost;
   }
 }
-

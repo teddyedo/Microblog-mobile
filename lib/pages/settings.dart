@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:microblog/services/UserServices.dart';
 
+///@version 1.0.0 - Allari Edoardo
+
 class Settings extends StatefulWidget {
   @override
   _SettingsState createState() => _SettingsState();
 }
 
 class _SettingsState extends State<Settings> {
-
   final _settingsFormKey = GlobalKey<FormState>();
 
   TextEditingController ipController = new TextEditingController();
   TextEditingController portController = new TextEditingController();
 
   int radioValue = 0;
-
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +30,7 @@ class _SettingsState extends State<Settings> {
                 fontSize: 25,
                 fontFamily: 'Poppins',
                 letterSpacing: 1.0,
-                fontWeight: FontWeight.bold
-            ),
+                fontWeight: FontWeight.bold),
           ),
           backgroundColor: Color.fromRGBO(217, 180, 126, 1),
           centerTitle: true,
@@ -39,8 +38,10 @@ class _SettingsState extends State<Settings> {
         body: SingleChildScrollView(
           child: Row(
             children: <Widget>[
-              Expanded(child: SizedBox(),
-                flex: 3,),
+              Expanded(
+                child: SizedBox(),
+                flex: 3,
+              ),
               Expanded(
                 flex: 14,
                 child: Form(
@@ -49,15 +50,16 @@ class _SettingsState extends State<Settings> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      SizedBox(height: 150,),
+                      SizedBox(
+                        height: 150,
+                      ),
                       Text(
                         'IP ',
                         style: TextStyle(
                             color: Color.fromRGBO(232, 90, 79, 1),
                             fontFamily: 'Roboto',
                             fontSize: 22,
-                            fontWeight: FontWeight.bold
-                        ),
+                            fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 10),
                       TextFormField(
@@ -68,10 +70,7 @@ class _SettingsState extends State<Settings> {
                             hintText: 'Enter the IP of the server',
                             focusedBorder: new UnderlineInputBorder(
                                 borderSide: new BorderSide(
-                                    color: Color.fromRGBO(232, 90, 79, 1)
-                                )
-                            )
-                        ),
+                                    color: Color.fromRGBO(232, 90, 79, 1)))),
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'Please enter the IP of the server';
@@ -91,8 +90,7 @@ class _SettingsState extends State<Settings> {
                             color: Color.fromRGBO(232, 90, 79, 1),
                             fontFamily: 'Roboto',
                             fontSize: 22,
-                            fontWeight: FontWeight.bold
-                        ),
+                            fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 10),
                       TextFormField(
@@ -103,10 +101,7 @@ class _SettingsState extends State<Settings> {
                             hintText: 'Enter the server port',
                             focusedBorder: new UnderlineInputBorder(
                                 borderSide: new BorderSide(
-                                    color: Color.fromRGBO(232, 90, 79, 1)
-                                )
-                            )
-                        ),
+                                    color: Color.fromRGBO(232, 90, 79, 1)))),
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'Please the port of the server';
@@ -119,7 +114,9 @@ class _SettingsState extends State<Settings> {
                           color: Color.fromRGBO(120, 119, 119, 1),
                         ),
                       ),
-                      SizedBox(height: 50,),
+                      SizedBox(
+                        height: 50,
+                      ),
                       Text(
                         'HTTP or HTTPS ',
                         textAlign: TextAlign.center,
@@ -127,8 +124,7 @@ class _SettingsState extends State<Settings> {
                             color: Color.fromRGBO(232, 90, 79, 1),
                             fontFamily: 'Roboto',
                             fontSize: 22,
-                            fontWeight: FontWeight.bold
-                        ),
+                            fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 20),
                       Padding(
@@ -142,7 +138,8 @@ class _SettingsState extends State<Settings> {
                                   children: <Widget>[
                                     Radio(
                                       value: 0,
-                                      activeColor: Color.fromRGBO(232, 90, 79, 1),
+                                      activeColor:
+                                          Color.fromRGBO(232, 90, 79, 1),
                                       groupValue: radioValue,
                                       onChanged: (T) {
                                         print(T);
@@ -170,7 +167,8 @@ class _SettingsState extends State<Settings> {
                                   children: <Widget>[
                                     Radio(
                                       value: 1,
-                                      activeColor: Color.fromRGBO(232, 90, 79, 1),
+                                      activeColor:
+                                          Color.fromRGBO(232, 90, 79, 1),
                                       groupValue: radioValue,
                                       onChanged: (T) {
                                         print(T);
@@ -186,7 +184,6 @@ class _SettingsState extends State<Settings> {
                                         fontFamily: 'Poppins',
                                         fontWeight: FontWeight.bold,
                                         color: Color.fromRGBO(120, 119, 119, 1),
-
                                       ),
                                     ),
                                   ],
@@ -196,17 +193,19 @@ class _SettingsState extends State<Settings> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 50,),
+                      SizedBox(
+                        height: 50,
+                      ),
                       FloatingActionButton.extended(
                         elevation: 0,
                         onPressed: () {
-                          if(_settingsFormKey.currentState.validate()){
+                          if (_settingsFormKey.currentState.validate()) {
                             UserServices.ip = ipController.text;
                             UserServices.port = portController.text;
 
-                            if(radioValue == 0){
+                            if (radioValue == 0) {
                               UserServices.protocol = "http";
-                            }else{
+                            } else {
                               UserServices.protocol = "https";
                             }
                             Navigator.popAndPushNamed(context, '/home');
@@ -229,11 +228,12 @@ class _SettingsState extends State<Settings> {
                   ),
                 ),
               ),
-              Expanded(child: SizedBox(),
-                flex: 3,)
+              Expanded(
+                child: SizedBox(),
+                flex: 3,
+              )
             ],
           ),
-        )
-    );
+        ));
   }
 }

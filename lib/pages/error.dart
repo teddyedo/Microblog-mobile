@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+///@version 1.0.0 - Allari Edoardo
+
 class Error extends StatefulWidget {
   @override
   _ErrorState createState() => _ErrorState();
@@ -18,16 +20,17 @@ class _ErrorState extends State<Error> {
                 fontSize: 25,
                 fontFamily: 'Poppins',
                 letterSpacing: 1.0,
-                fontWeight: FontWeight.bold
-            ),
+                fontWeight: FontWeight.bold),
           ),
           backgroundColor: Color.fromRGBO(217, 180, 126, 1),
           centerTitle: true,
         ),
         body: Row(
           children: <Widget>[
-            Expanded(child: SizedBox(),
-              flex: 3,),
+            Expanded(
+              child: SizedBox(),
+              flex: 3,
+            ),
             Expanded(
               flex: 14,
               child: Column(
@@ -42,10 +45,11 @@ class _ErrorState extends State<Error> {
                         fontSize: 40,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.bold,
-                        height: 1.1
-                    ),
+                        height: 1.1),
                   ),
-                  SizedBox(height: 50,),
+                  SizedBox(
+                    height: 50,
+                  ),
                   FloatingActionButton.extended(
                     onPressed: () {
                       Navigator.pushNamed(context, '/home');
@@ -65,10 +69,11 @@ class _ErrorState extends State<Error> {
                 ],
               ),
             ),
-            Expanded(child: SizedBox(),
-              flex: 3,)
+            Expanded(
+              child: SizedBox(),
+              flex: 3,
+            )
           ],
-        )
-    );
+        ));
   }
 }

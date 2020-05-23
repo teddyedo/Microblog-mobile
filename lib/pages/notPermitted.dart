@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+///@version 1.0.0 - Allari Edoardo
+
 class NotPermitted extends StatefulWidget {
   @override
   _NotPermittedState createState() => _NotPermittedState();
@@ -18,16 +20,17 @@ class _NotPermittedState extends State<NotPermitted> {
                 fontSize: 25,
                 fontFamily: 'Poppins',
                 letterSpacing: 1.0,
-                fontWeight: FontWeight.bold
-            ),
+                fontWeight: FontWeight.bold),
           ),
           backgroundColor: Color.fromRGBO(217, 180, 126, 1),
           centerTitle: true,
         ),
         body: Row(
           children: <Widget>[
-            Expanded(child: SizedBox(),
-              flex: 3,),
+            Expanded(
+              child: SizedBox(),
+              flex: 3,
+            ),
             Expanded(
               flex: 14,
               child: Column(
@@ -38,14 +41,15 @@ class _NotPermittedState extends State<NotPermitted> {
                     'You don\'t have the permission to do that!',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Color.fromRGBO(120, 119, 119, 1),
-                      fontSize: 40,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.bold,
-                      height: 1.1
-                    ),
+                        color: Color.fromRGBO(120, 119, 119, 1),
+                        fontSize: 40,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.bold,
+                        height: 1.1),
                   ),
-                  SizedBox(height: 50,),
+                  SizedBox(
+                    height: 50,
+                  ),
                   FloatingActionButton.extended(
                     onPressed: () {
                       Navigator.pushNamed(context, '/home');
@@ -65,10 +69,11 @@ class _NotPermittedState extends State<NotPermitted> {
                 ],
               ),
             ),
-            Expanded(child: SizedBox(),
-              flex: 3,)
+            Expanded(
+              child: SizedBox(),
+              flex: 3,
+            )
           ],
-        )
-    );
+        ));
   }
 }

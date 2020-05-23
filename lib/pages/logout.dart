@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:microblog/services/UserServices.dart';
 
+///@version 1.0.0 - Allari Edoardo
+
 class Logout extends StatefulWidget {
   @override
   _LogoutState createState() => _LogoutState();
@@ -11,25 +13,26 @@ class _LogoutState extends State<Logout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(234, 231, 220, 1),
-      appBar: AppBar(
-        title: Text(
-          'LOGOUT',
-          style: TextStyle(
-              color: Color.fromRGBO(232, 90, 79, 1),
-              fontSize: 25,
-              fontFamily: 'Poppins',
-              letterSpacing: 1.0,
-              fontWeight: FontWeight.bold
+        backgroundColor: Color.fromRGBO(234, 231, 220, 1),
+        appBar: AppBar(
+          title: Text(
+            'LOGOUT',
+            style: TextStyle(
+                color: Color.fromRGBO(232, 90, 79, 1),
+                fontSize: 25,
+                fontFamily: 'Poppins',
+                letterSpacing: 1.0,
+                fontWeight: FontWeight.bold),
           ),
+          backgroundColor: Color.fromRGBO(217, 180, 126, 1),
+          centerTitle: true,
         ),
-        backgroundColor: Color.fromRGBO(217, 180, 126, 1),
-        centerTitle: true,
-      ),
         body: Row(
           children: <Widget>[
-            Expanded(child: SizedBox(),
-              flex: 3,),
+            Expanded(
+              child: SizedBox(),
+              flex: 3,
+            ),
             Expanded(
               flex: 14,
               child: Column(
@@ -44,10 +47,11 @@ class _LogoutState extends State<Logout> {
                       fontSize: 40,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.bold,
-
                     ),
                   ),
-                  SizedBox(height: 50,),
+                  SizedBox(
+                    height: 50,
+                  ),
                   FloatingActionButton.extended(
                     onPressed: () {
                       UserServices.u = null;
@@ -69,10 +73,11 @@ class _LogoutState extends State<Logout> {
                 ],
               ),
             ),
-            Expanded(child: SizedBox(),
-              flex: 3,)
+            Expanded(
+              child: SizedBox(),
+              flex: 3,
+            )
           ],
-        )
-    );
+        ));
   }
 }

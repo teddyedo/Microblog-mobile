@@ -9,6 +9,8 @@ import 'package:microblog/pages/preferences.dart';
 import 'package:microblog/pages/registration.dart';
 import 'package:microblog/pages/settings.dart';
 
+///@version 1.0.0 - Allari Edoardo
+
 void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
   initialRoute: '/',

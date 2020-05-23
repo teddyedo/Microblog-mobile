@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:microblog/model/Post.dart';
@@ -6,9 +5,9 @@ import 'package:microblog/services/PostServices.dart';
 import 'package:microblog/services/UserServices.dart';
 import 'dart:convert';
 
+///@version 1.0.0 - Allari Edoardo
 
-Widget postCard(post, context){
-
+Widget postCard(post, context) {
   List listaCommenti = post.commentList;
 
   return Card(
@@ -85,7 +84,7 @@ Widget postCard(post, context){
               ),
             ),
             SizedBox(height: 10),
-            ],
+          ],
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -120,8 +119,10 @@ Widget postCard(post, context){
             Flexible(
               child: Row(
                 children: <Widget>[
-                  Expanded(child: SizedBox(),
-                    flex: 1,),
+                  Expanded(
+                    child: SizedBox(),
+                    flex: 1,
+                  ),
                   Expanded(
                     flex: 40,
                     child: Column(
@@ -135,12 +136,13 @@ Widget postCard(post, context){
                               padding: const EdgeInsets.symmetric(vertical: 5),
                             ),
                             Text(
-                              '${commento.Testo}' + ' - ' + '${commento.user.username}',
+                              '${commento.Testo}' +
+                                  ' - ' +
+                                  '${commento.user.username}',
                               style: TextStyle(
-                                color: Color.fromRGBO(120, 119, 119, 1),
-                                fontFamily: 'Roboto',
-                                fontSize: 14
-                              ),
+                                  color: Color.fromRGBO(120, 119, 119, 1),
+                                  fontFamily: 'Roboto',
+                                  fontSize: 14),
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 5),
@@ -159,8 +161,10 @@ Widget postCard(post, context){
                       }).toList(),
                     ),
                   ),
-                  Expanded(child: SizedBox(),
-                    flex: 1,)
+                  Expanded(
+                    child: SizedBox(),
+                    flex: 1,
+                  )
                 ],
               ),
             ),
@@ -174,14 +178,16 @@ Widget postCard(post, context){
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(6,0,6,6),
+                  padding: const EdgeInsets.fromLTRB(6, 0, 6, 6),
                   child: RaisedButton(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
                     onPressed: () {
-                      if(UserServices.u.roles == "ADMIN" || UserServices.u.roles == "USER"){
-                        Navigator.pushNamed(context, '/posts/newComment', arguments: {'postId': post.Id});
+                      if (UserServices.u.roles == "ADMIN" ||
+                          UserServices.u.roles == "USER") {
+                        Navigator.pushNamed(context, '/posts/newComment',
+                            arguments: {'postId': post.Id});
                       }
                     },
                     color: Color.fromRGBO(232, 90, 79, 1),
@@ -209,31 +215,32 @@ Widget postCard(post, context){
                         size: 35,
                         color: Color.fromRGBO(232, 90, 79, 1),
                       ),
-                      onPressed:() async {
-                        if(UserServices.u.roles == "ADMIN"){
+                      onPressed: () async {
+                        if (UserServices.u.roles == "ADMIN") {
                           UserServices.deletePost(post.Id.toString());
 
                           String postListJson = await UserServices.getPosts();
-                          Map<String, dynamic> posts = json.decode(postListJson);
+                          Map<String, dynamic> posts =
+                              json.decode(postListJson);
 
                           String nextPage = "";
                           String prevPage = "";
 
-
-                          if(posts["_links"].containsKey("next"))
+                          if (posts["_links"].containsKey("next"))
                             nextPage = posts["_links"]["next"]["href"];
 
-
-                          if(posts["_links"].containsKey("prev"))
+                          if (posts["_links"].containsKey("prev"))
                             prevPage = posts["_links"]["prev"]["href"];
 
-                          List<Post> postList = await PostServices.getPostsFormatted(posts);
+                          List<Post> postList =
+                              await PostServices.getPostsFormatted(posts);
 
-                          Navigator.popAndPushNamed(
-                              context,
-                              "/posts",
-                              arguments: {'postList': postList, 'next': nextPage, 'prev': prevPage}
-                          );
+                          Navigator.popAndPushNamed(context, "/posts",
+                              arguments: {
+                                'postList': postList,
+                                'next': nextPage,
+                                'prev': prevPage
+                              });
                         }
                       })
                 ],
